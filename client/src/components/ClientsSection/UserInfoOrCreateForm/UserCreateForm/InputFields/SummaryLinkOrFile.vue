@@ -49,16 +49,6 @@
                 type="text" />
         </dd>
     </div>
-
-    <button @click="goEmitOne">
-        отправить родителю emitOne
-    </button>
-    <button @click="goEmitTwo">
-        отправить родителю emitTwo
-    </button>
-    <button @click="getProps">
-        получить пропс
-    </button>
 </template>
 
 <script setup>
@@ -71,23 +61,6 @@ const optionsStore = useOptionsStore()
 
 const changeSummary = (boolean) => {
     optionsStore.setSummaryLinkOrFile(boolean)
-}
-
-const emit = defineEmits(['testemitone', 'testemittwo'])
-const props = defineProps({
-    propss: {
-        type: String,
-        required: true
-    }
-})
-const goEmitOne = () => {
-    emit('testemitone', 'test one')
-}
-const goEmitTwo = () => {
-    emit('testemittwo', 'test two')
-}
-const getProps = () => {
-    console.log(props.propss)
 }
 
 </script>
