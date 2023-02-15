@@ -47,7 +47,7 @@
 
                 <!-- Файл или ссылку -->
                 <div>
-                    <SummaryLinkOrFile />
+                    <SummaryLinkOrFile :propss="propsOne" @testemittwo="getOne" @testemitone="getTwo" />
                 </div>
 
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -234,8 +234,20 @@ const optionsStore = useOptionsStore()
 const userStore = useUserStore()
 
 
+const getOne = (event) => {
+    console.log(event)
+}
+const getTwo = (event) => {
+    console.log(event)
+}
+const propsOne = 'test text props'
+
 const downloadSelectedResume = () => {
     console.log('Скачать резюме выбранного пользователся')
+}
+
+const changeSummary = (data) => {
+    console.log('пропс')
 }
 
 

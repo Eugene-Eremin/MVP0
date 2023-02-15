@@ -6,7 +6,6 @@ import Clients from '../views/Clients.vue'
 import Vacancies from '../views/Vacancies.vue'
 import Selections from '../views/Selections.vue'
 import TableEditing from '../views/TableEditing.vue'
-import Test from '../views/Test.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,11 +39,6 @@ const router = createRouter({
       name: 'TableEditing',
       component: TableEditing,
       meta: { auth: true, role: 'admin' }
-    },
-    {
-      path: '/test',
-      name: 'Test',
-      component: Test,
     },
   ]
 })

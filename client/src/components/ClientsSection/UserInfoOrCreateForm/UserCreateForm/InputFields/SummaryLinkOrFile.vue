@@ -4,7 +4,7 @@
         <dt class="text-sm font-medium">
             Резюме:
             <br>
-            <button @click="optionsStore.setSummaryLinkOrFile"
+            <button @click="changeSummary(false)"
                 class="mt-2 flex flex-row items-center text-gray-400 transition ease-in-out duration-350 w-full border text-sm rounded-md p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 hover:bg-gray-600 active:bg-gray-800">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -27,7 +27,7 @@
         <dt class="text-sm font-medium ">
             Ссылка на резюме:
             <br>
-            <button @click="optionsStore.setSummaryLinkOrFile"
+            <button @click="changeSummary(true)"
                 class="mt-2 flex flex-row items-center text-gray-400 transition ease-in-out duration-350 w-full border text-sm rounded-md p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 hover:bg-gray-600 active:bg-gray-800">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -44,11 +44,21 @@
         <dd class="mt-5 text-sm sm:col-span-2 sm:mt-0 break-words">
             <!-- Тут вывести в общюю инфу -->
             <!-- in input - v-model="userInfoCreate.summaryLink" -->
-            <input 
+            <input
                 class="transition ease-in-out duration-350 focus:outline-none focus:ring focus:ring-gray-400 focus:border-gray-500 w-full border text-sm rounded-md block p-1 bg-gray-700 border-gray-600 placeholder-gray-400"
                 type="text" />
         </dd>
     </div>
+
+    <button @click="goEmitOne">
+        отправить родителю emitOne
+    </button>
+    <button @click="goEmitTwo">
+        отправить родителю emitTwo
+    </button>
+    <button @click="getProps">
+        получить пропс
+    </button>
 </template>
 
 <script setup>
@@ -56,6 +66,28 @@ import AddSummaryFile from './AddSummaryFile.vue';
 
 import { useOptionsStore } from '../../../../../store/oprionsStore';
 
+
 const optionsStore = useOptionsStore()
+
+const changeSummary = (boolean) => {
+    optionsStore.setSummaryLinkOrFile(boolean)
+}
+
+const emit = defineEmits(['testemitone', 'testemittwo'])
+const props = defineProps({
+    propss: {
+        type: String,
+        required: true
+    }
+})
+const goEmitOne = () => {
+    emit('testemitone', 'test one')
+}
+const goEmitTwo = () => {
+    emit('testemittwo', 'test two')
+}
+const getProps = () => {
+    console.log(props.propss)
+}
 
 </script>

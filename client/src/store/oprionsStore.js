@@ -13,9 +13,8 @@ export const useOptionsStore = defineStore('optionsStore', () => {
 
     const summaryLinkOrFile = ref(true)
 
-    const setSummaryLinkOrFile = () => {
-        summaryLinkOrFile.value = !summaryLinkOrFile.value
-        console.log(summaryLinkOrFile.value)
+    const setSummaryLinkOrFile = (boolean) => {
+        summaryLinkOrFile.value = boolean
     }
 
 
