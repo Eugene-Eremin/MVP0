@@ -61,7 +61,7 @@
                         <div>
                             Последние работы:
                         </div>
-                        <div class="mt-3 m-[151.2px]">
+                        <div class="mt-3 w-[151.2px]">
                             <AddPastWork />
                         </div>
                     </dt>
