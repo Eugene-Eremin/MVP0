@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="h-[550px] border-t border-gray-700 text-gray-400 overflow-y-auto">
+        <div class="h-[550px] border-t w-full border-gray-700 text-gray-400 overflow-y-auto">
 
             <dl>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -27,6 +27,7 @@
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Группы пользователя:</dt>
                     <dd class=" text-sm sm:col-span-2 sm:mt-0 break-words">
+                        <!-- Выпадающий список с группами -->
                         <GroupsDropdown />
                     </dd>
                 </div>
@@ -41,6 +42,7 @@
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Сфера поиска работы:</dt>
                     <dd class=" text-sm sm:col-span-2 sm:mt-0 break-words">
+                        <!-- Выпадающий список с сферами работы -->
                         <AreasWorkDropdown />
                     </dd>
                 </div>
@@ -53,6 +55,7 @@
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Работает сейчас:</dt>
                     <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0 break-words">
+                        <!-- Выпадающий список с выбором - да/нет -->
                         <WorkNowDropdown />
                     </dd>
                 </div>
@@ -61,8 +64,9 @@
                         <div>
                             Последние работы:
                         </div>
-                        <div class="mt-3 w-[151.2px]">
-                            <AddPastWork />
+                        <div class="mt-5">
+                            <!-- Форма добавления данных пользователя -->
+                            <AddPastWork class=" mx-auto" />
                         </div>
                     </dt>
                     <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">

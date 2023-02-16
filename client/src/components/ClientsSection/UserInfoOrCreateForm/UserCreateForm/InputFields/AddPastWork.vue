@@ -1,9 +1,10 @@
 <template>
     <v-row justify="center">
-        <v-dialog v-model="dialog" persistent width="1024">
-            <template
-                v-slot:activator="{ props }">
-                <button class="mt-2 flex flex-row items-center text-gray-400 transition ease-in-out duration-350 w-full border text-sm rounded-md p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 hover:bg-gray-600 active:bg-gray-800" v-bind="props">
+        <v-dialog v-model="dialog" persistent width="600">
+            <template v-slot:activator="{ props }">
+                <button
+                    class="flex flex-row items-center text-gray-400 transition ease-in-out duration-350 w-full border text-sm rounded-md p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 hover:bg-gray-600 active:bg-gray-800"
+                    v-bind="props">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">
@@ -18,32 +19,38 @@
             </template>
             <v-card>
                 <v-card-title>
-                    <span class="text-h5">User Profile</span>
+                    <span class="text-h5">Добавить работу</span>
                 </v-card-title>
                 <v-card-text>
                     <v-container>
                         <v-row>
-                            <v-col cols="12" sm="6" md="4">
-                                <v-text-field v-model="testfield1" label="Legal first name*" required></v-text-field>
+                            <v-col>
+                                <v-text-field v-model="companyName" label="Название компании" required
+                                    variant="underlined"></v-text-field>
                             </v-col>
-                            <v-col cols="12" sm="6" md="4">
-                                <v-text-field v-model="testfield2" label="Legal middle name"
-                                    hint="example of helper text only on focus"></v-text-field>
+                            <v-col>
+                                <v-autocomplete v-model="scopeWork" :items="items" label="Сфера" variant="underlined"
+                                    required></v-autocomplete>
                             </v-col>
-                            <v-col cols="12" sm="6" md="4">
-                                <v-text-field v-model="testfield3" label="Legal last name*"
-                                    hint="example of persistent helper text" persistent-hint required></v-text-field>
+                            <v-responsive width="100%"></v-responsive>
+                            <v-col>
+                                <v-text-field v-model="jobTitle" label="Должность" required
+                                    variant="underlined"></v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-text-field v-model="beginningWork" label="Начало работы"
+                                    placeholder="****/**.** (2010/17.02)" required variant="underlined"></v-text-field>
                             </v-col>
                         </v-row>
                     </v-container>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-                        Close
+                    <v-btn color="blue-grey-darken-4" block variant="text" @click="closeCard">
+                        Назад
                     </v-btn>
-                    <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-                        Save
+                    <v-btn color="blue-grey-darken-4" variant="text" @click="closeCard">
+                        Добавить
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -55,13 +62,21 @@
 export default {
     data: () => ({
         dialog: false,
-        testfield1: '',
-        testfield2: '',
-        testfield3: '',
+        items: ['Кулинария', 'Строительство', 'Недвижимость', 'IT'],
+
+        companyName: '',
+        scopeWork: null,
+        jobTitle: '',
+        beginningWork: '',
     }),
+    methods: ({
+        closeCard() {
+            this.dialog = false
+            this.companyName = ''
+            this.scopeWork = null
+            this.jobTitle = ''
+            this.beginningWork = ''
+        }
+    })
 }
 </script>
-
-<style scoped>
-
-</style>
