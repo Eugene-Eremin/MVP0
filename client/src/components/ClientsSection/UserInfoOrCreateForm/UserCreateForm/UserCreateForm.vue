@@ -1,5 +1,4 @@
-<template>
-    <!-- Создать пользователя  -->
+<template><!-- Создать пользователя  -->
     <div class="overflow-hidden rounded-md">
 
         <div class="px-4 py-1 flex bg-gray-700">
@@ -125,7 +124,7 @@
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
                                 <!-- Список добавленых языков -->
-                                <SpokenLanguages :spokenLanguageArray="spokenLanguageArray" />
+                                <SpokenLanguages :socialMediaArray="socialMediaArray" />
                             </div>
                         </div>
                     </dd>
@@ -161,7 +160,15 @@
                     </dd>
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium ">Социальные сети:</dt>
+                    <dt class="text-sm font-medium ">
+                        <div>
+                            Социальные сети:
+                        </div>
+                        <div class="mt-5 mb-5">
+                            <!-- Форма добавления соц. сетей -->
+                            <AddSocialMedia @addSocialMedia="addSocialMedia" class=" mx-auto" />
+                        </div>
+                    </dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0">
                         <div class="rounded-md overflow-hidden border border-gray-700">
                             <div
@@ -176,14 +183,8 @@
                                 </div>
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
-                                    <div class="m-auto p-1">
-                                        Linkedin
-                                    </div>
-                                    <div class="m-auto p-1">
-                                        <a class="underline" href="https://test.com">https://test.com</a>
-                                    </div>
-                                </div>
+                                <!-- Список добавленых соц. сетей -->
+                                <SocialsMedia :socialMediaArray="socialMediaArray" />
                             </div>
                         </div>
                     </dd>
@@ -209,7 +210,7 @@ import AddSocialMedia from './InputFields/AddSocialMedia.vue';
 import PastWorks from './ShowingFields/PastWorks.vue'
 import SpokenLanguages from './ShowingFields/SpokenLanguages.vue';
 import OwnedSkills from './ShowingFields/OwnedSkills.vue';
-import SocialsMediaVue from './ShowingFields/SocialsMedia.vue';
+import SocialsMedia from './ShowingFields/SocialsMedia.vue';
 
 import { ref, reactive } from 'vue';
 
@@ -238,6 +239,10 @@ const addSpokenLanguage = (data) => {
     spokenLanguageArray.value = [...spokenLanguageArray.value, data]
 }
 
+let socialMediaArray = ref([])
+const addSocialMedia = (data) => {
+    socialMediaArray.value = [...socialMediaArray.value, data]
+}
 
 // все сюда объединить
 const userInfoCreate = reactive({
