@@ -17,42 +17,64 @@
                     </div>
                 </button>
             </template>
-            <v-card>
+            <v-card text-color="white">
                 <v-card-title>
-                    <span class="text-h5">Добавить работу</span>
+                    <div class="mt-2">
+                        <span class="text-h5">Добавить работу</span>
+                    </div>
                 </v-card-title>
-                <v-card-text>
-                    <v-container>
-                        <v-row>
-                            <v-col>
-                                <v-text-field v-model="companyName" label="Название компании" required
-                                    variant="underlined"></v-text-field>
-                            </v-col>
-                            <v-col>
-                                <v-autocomplete v-model="scopeWork" :items="items" label="Сфера" variant="underlined"
-                                    required></v-autocomplete>
-                            </v-col>
-                            <v-responsive width="100%"></v-responsive>
-                            <v-col>
-                                <v-text-field v-model="jobTitle" label="Должность" required
-                                    variant="underlined"></v-text-field>
-                            </v-col>
-                            <v-col>
-                                <v-text-field v-model="beginningWork" label="Начало работы"
-                                    placeholder="****/**.** (2010/17.02)" required variant="underlined"></v-text-field>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue-grey-darken-4" block variant="text" @click="closeCard">
-                        Назад
-                    </v-btn>
-                    <v-btn color="blue-grey-darken-4" variant="text" @click="closeCard">
-                        Добавить
-                    </v-btn>
-                </v-card-actions>
+                <div class="p-2">
+                    <v-card-text>
+                        <!-- <v-container>
+                                                                                    <v-row>
+                                                                                        <v-col>
+                                                                                            <v-text-field v-model="companyName" label="Название компании" required
+                                                                                                variant="underlined"></v-text-field>
+                                                                                        </v-col>
+                                                                                        <v-col>
+                                                                                            <v-autocomplete v-model="scopeWork" :items="items" label="Сфера" variant="underlined"
+                                                                                                required></v-autocomplete>
+                                                                                        </v-col>
+                                                                                        <v-responsive width="100%"></v-responsive>
+                                                                                        <v-col>
+                                                                                            <v-text-field v-model="jobTitle" label="Должность" required
+                                                                                                variant="underlined"></v-text-field>
+                                                                                        </v-col>
+                                                                                        <v-col>
+                                                                                            <v-text-field v-model="beginningWork" label="Начало работы"
+                                                                                                placeholder="****/**.** (2010/17.02)" required variant="underlined"></v-text-field>
+                                                                                        </v-col>
+                                                                                    </v-row>
+                                                                                </v-container> -->
+                        <v-form ref="form" @submit.prevent>
+                            <!-- <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field> -->
+                            <v-text-field v-model="companyName" :rules="countRules" label="Название компании" required
+                                variant="underlined"></v-text-field>
+
+                            <v-autocomplete v-model="scopeWork" :rules="countRules" :items="items" label="Сфера"
+                                variant="underlined" required></v-autocomplete>
+
+                            <v-text-field v-model="jobTitle" :rules="countRules" label="Должность" required
+                                variant="underlined"></v-text-field>
+                            <!-- <v-select v-model="select" :items="items" :rules="[v => !!v || 'Item is required']" label="Item"
+                                                                            required></v-select>
+
+                                                                        <v-checkbox v-model="checkbox" :rules="[v => !!v || 'You must agree to continue!']"
+                                                                            label="Do you agree?" required></v-checkbox> -->
+
+                            <v-text-field v-model="beginningWork" label="Начало работы" type="date" :rules="countRules"
+                                required variant="underlined"></v-text-field>
+
+
+                            <v-btn type="submit" block color="blue-grey-darken-2" class="mt-4" @click="closeCard">
+                                Назад
+                            </v-btn>
+                            <v-btn type="submit" block color="green-darken-4" class="mt-4" @click="validate">
+                                Добавить
+                            </v-btn>
+                        </v-form>
+                    </v-card-text>
+                </div>
             </v-card>
         </v-dialog>
     </v-row>
@@ -68,15 +90,35 @@ export default {
         scopeWork: null,
         jobTitle: '',
         beginningWork: '',
+
+        countRules: [
+            v => !!v || 'Обязательное поле'
+        ]
     }),
     methods: ({
         closeCard() {
+            const data = {
+                companyName: this.companyName,
+                scopeWork: this.scopeWork,
+                jobTitle: this.jobTitle,
+                beginningWork: this.beginningWork,
+            }
+
+            console.log(data)
+            this.$emit("addPastWorkData", data)
+
+
             this.dialog = false
             this.companyName = ''
             this.scopeWork = null
             this.jobTitle = ''
             this.beginningWork = ''
-        }
+        },
+        async validate() {
+            const { valid } = await this.$refs.form.validate()
+
+            if (valid) this.closeCard()
+        },
     })
 }
 </script>

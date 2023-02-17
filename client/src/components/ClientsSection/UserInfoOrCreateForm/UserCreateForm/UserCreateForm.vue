@@ -66,7 +66,7 @@
                         </div>
                         <div class="mt-5">
                             <!-- Форма добавления данных пользователя -->
-                            <AddPastWork class=" mx-auto" />
+                            <AddPastWork @addPastWorkData="addPastWorkData" class=" mx-auto" />
                         </div>
                     </dt>
                     <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">
@@ -222,6 +222,11 @@ let dialog = false;
 
 const openDialog = () => {
     dialog = true;
+}
+
+const addPastWorkData = (data) => {
+    console.log(data)
+    
 }
 
 const userInfoCreate = reactive({
