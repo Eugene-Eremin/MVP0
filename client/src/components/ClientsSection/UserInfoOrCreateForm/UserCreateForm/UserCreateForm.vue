@@ -124,7 +124,7 @@
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
                                 <!-- Список добавленых языков -->
-                                <SpokenLanguages :socialMediaArray="socialMediaArray" />
+                                <SpokenLanguages :spokenLanguageArray="spokenLanguageArray" />
                             </div>
                         </div>
                     </dd>
