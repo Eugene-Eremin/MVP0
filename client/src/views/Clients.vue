@@ -22,7 +22,7 @@
                 <UserInfo />
             </div>
             <!-- Создать пользователя -->
-            <div v-show="!selectedOrCreate">
+            <div v-if="userStore.admin == 'admin'" v-show="!selectedOrCreate">
                 <UserCreateForm />
             </div>
         </div>

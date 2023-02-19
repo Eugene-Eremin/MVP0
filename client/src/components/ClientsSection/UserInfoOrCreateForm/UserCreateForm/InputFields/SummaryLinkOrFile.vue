@@ -54,18 +54,17 @@ import AddSummaryFile from './AddSummaryFile.vue';
 
 import { ref } from 'vue';
 
-let summaryLink = ref('')
+let summaryLink = ref(null)
 let file = ref(null)
 
 const setFile = (event) => {
-    file = event
-    console.log(file)
+    event ? file.value = event: file.value = null
+    console.log(file.value)
 }
 
 let summaryLinkOrFile = ref(true)
 
 const changeSummary = () => {
-    if (!summaryLinkOrFile.value) summaryLink = ''; file = null
     summaryLinkOrFile.value = !summaryLinkOrFile.value
 }
 

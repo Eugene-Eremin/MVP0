@@ -19,7 +19,6 @@
 
 <script setup>
 
-
 const props = defineProps({
     pastWorkArray: {
         type: Array,

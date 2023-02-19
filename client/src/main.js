@@ -15,12 +15,15 @@ import { createPinia } from 'pinia'
 // Plugins
 import { registerPlugins } from '@/plugins'
 
+import VueTheMask from 'vue-the-mask'
+
 import './assets/tailwind.css'
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+app.use(VueTheMask)
 registerPlugins(app)
 
 app.mount('#app')

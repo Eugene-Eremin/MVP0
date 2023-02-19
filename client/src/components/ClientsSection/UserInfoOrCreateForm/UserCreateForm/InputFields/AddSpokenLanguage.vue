@@ -26,13 +26,10 @@
                 <div class="p-2">
                     <v-card-text>
                         <v-form ref="form" @submit.prevent>
-
                             <v-autocomplete v-model="language" :rules="countRules" :items="items" label="Язык"
                                 variant="underlined" required></v-autocomplete>
-
                             <v-text-field v-model="grade" :rules="countRulesGrade" label="Оценка" required
                                 variant="underlined"></v-text-field>
-
                             <v-btn type="submit" block color="blue-grey-darken-2" class="mt-4" @click="closeCard(false)">
                                 Назад
                             </v-btn>
@@ -73,7 +70,6 @@ export default {
                     language: this.language,
                     grade: this.grade
                 }
-
                 console.log(data)
                 this.$emit("addSpokenLanguage", data)
             }
@@ -84,7 +80,6 @@ export default {
         },
         async validate() {
             const { valid } = await this.$refs.form.validate()
-
             if (valid) this.closeCard(true)
         },
     })

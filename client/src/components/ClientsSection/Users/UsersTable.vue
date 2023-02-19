@@ -24,7 +24,7 @@
                 <tr v-for="item in 10"
                     class="cursor-pointer transition ease-in-out duration-350 border-b bg-gray-800 border-red-700 hover:bg-gray-600">
                     <td @click="openUser" class="px-6 py-3">
-                        + 7 900 000 00 00
+                        +7 900 000 00 00
                     </td>
                     <td @click="openUser" class="px-6 py-3">
                         Сергей Сергеев Сергеевич

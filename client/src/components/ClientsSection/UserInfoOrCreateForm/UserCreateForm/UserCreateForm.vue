@@ -12,10 +12,9 @@
             <dl>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium">Имя:</dt>
-                    <dd class="text-sm sm:col-span-2 sm:mt-0 break-words">
-                        <input v-model="userInfoCreate.name"
-                            class="transition ease-in-out duration-350 focus:outline-none focus:ring focus:ring-gray-400 focus:border-gray-500 w-full border text-sm rounded-md block p-1 bg-gray-700 border-gray-600 placeholder-gray-400"
-                            type="text" />
+                    <dd class="text-sm sm:col-span-2 sm:mt-0 break-words px-4">
+                        <v-text-field density="compact" v-model="userInfoCreate.name" :counter="64" :rules="nameRules" variant="underlined"
+                            required></v-text-field>
                     </dd>
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -27,10 +26,9 @@
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Номер телефона:</dt>
-                    <dd class="text-sm  sm:col-span-2 sm:mt-0 break-words">
-                        <input v-model="userInfoCreate.phoneNumber"
-                            class="transition ease-in-out duration-350 focus:outline-none focus:ring focus:ring-gray-400 focus:border-gray-500 w-full border text-sm rounded-md block p-1 bg-gray-700 border-gray-600 placeholder-gray-400"
-                            type="text" />
+                    <dd class="text-sm  sm:col-span-2 sm:mt-0 break-words px-4">
+                        <v-text-field v-model="userInfoCreate.phoneNumber" v-mask="'+# ### ### ## ##'" :rules="phoneNumberRules" variant="underlined"
+                            required></v-text-field>
                     </dd>
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -211,6 +209,8 @@ import { useUserStore } from '../../../../store/userStore';
 
 const userStore = useUserStore()
 
+// ...
+
 let pastWorkArray = ref([])
 const addPastWorkData = (data) => {
     pastWorkArray.value = [...pastWorkArray.value, data]
@@ -233,9 +233,9 @@ const addSocialMedia = (data) => {
 
 // все сюда объединить
 const userInfoCreate = reactive({
-    name: null, // ввод вручную ФИО...
-    groups: null, // [0 (админ), 2(работодатель)] - будет выбирать из выпад. списка
-    phoneNumber: null, // ввод вручную только цифры
+    name: null, // ввод вручную имени...
+    groups: null, // ??? [0 (админ), 2(работодатель)] - будет выбирать из выпад. списка
+    phoneNumber: null, // ввод вручную только цифры...
     searchScopeJob: null, // 1 (недвижимость) или 3 (строительство) - выбирает из выпад. списка
     summary: null, // функционал загрузки файла и закрепления его за этим пользователем
     summaryLink: null, // или вместо файла ссылка на резюме в ручную
@@ -246,5 +246,16 @@ const userInfoCreate = reactive({
     ownedSkills: null, // [ {...}, ...]
     socialMedia: null, // [ {...}, ...]
 })
+
+// ...
+
+const nameRules = [
+    v => !!v || 'Обязательное поле'
+]
+
+const phoneNumberRules = [
+    v => !!v || 'Обязательное поле',
+    v => (v.length > 15) || 'Введите номер полностью',
+]
 
 </script>

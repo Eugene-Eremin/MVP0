@@ -22,7 +22,7 @@
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Номер телефона:</dt>
-                    <dd class="text-sm  sm:col-span-2 sm:mt-0 break-words">+ 7 900 000 00 00</dd>
+                    <dd class="text-sm  sm:col-span-2 sm:mt-0 break-words">+7 900 000 00 00</dd>
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Сфера поиска работы:</dt>

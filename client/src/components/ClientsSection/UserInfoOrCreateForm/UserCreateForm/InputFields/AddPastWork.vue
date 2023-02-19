@@ -28,16 +28,12 @@
                         <v-form ref="form" @submit.prevent>
                             <v-text-field v-model="companyName" :rules="countRules" label="Название компании" required
                                 variant="underlined"></v-text-field>
-
                             <v-autocomplete v-model="scopeWork" :rules="countRules" :items="items" label="Сфера"
                                 variant="underlined" required></v-autocomplete>
-
                             <v-text-field v-model="jobTitle" :rules="countRules" label="Должность" required
                                 variant="underlined"></v-text-field>
-
                             <v-text-field v-model="beginningWork" label="Начало работы" type="date" :rules="countRules"
                                 required variant="underlined"></v-text-field>
-
                             <v-btn type="submit" block color="blue-grey-darken-2" class="mt-4" @click="closeCard(false)">
                                 Назад
                             </v-btn>
@@ -76,7 +72,6 @@ export default {
                     jobTitle: this.jobTitle,
                     beginningWork: this.beginningWork,
                 }
-
                 console.log(data)
                 this.$emit("addPastWorkData", data)
             }
@@ -89,7 +84,6 @@ export default {
         },
         async validate() {
             const { valid } = await this.$refs.form.validate()
-
             if (valid) this.closeCard(true)
         },
     })
