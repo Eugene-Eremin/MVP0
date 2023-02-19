@@ -19,8 +19,8 @@ import NavbarForAdmin from './components/Navbar/NavbarForAdmin.vue';
 import NavbarForApplicant from './components/Navbar/NavbarForApplicant.vue';
 import NavbarForEmployer from './components/Navbar/NavbarForEmployer.vue';
 
-import { ref, onBeforeMount } from 'vue';
-import { RouterLink, RouterView } from 'vue-router'
+import { onBeforeMount } from 'vue';
+import { RouterView } from 'vue-router'
 
 import { useUserStore } from './store/userStore'
 

@@ -5,12 +5,6 @@ export const useOptionsStore = defineStore('optionsStore', () => {
 
 
 
-    const selectedOrCreate = ref(true)
-
-    const setSelectedOrCreate = () => {
-        selectedOrCreate.value = !selectedOrCreate.value
-    }
-
     const summaryLinkOrFile = ref(true)
 
     const setSummaryLinkOrFile = (boolean) => {
@@ -21,8 +15,6 @@ export const useOptionsStore = defineStore('optionsStore', () => {
 
 
     return {
-        selectedOrCreate,
-        setSelectedOrCreate,
         summaryLinkOrFile,
         setSummaryLinkOrFile,
 

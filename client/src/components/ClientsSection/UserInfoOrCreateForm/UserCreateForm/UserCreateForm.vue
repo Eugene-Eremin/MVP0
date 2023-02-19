@@ -1,19 +1,14 @@
-<template><!-- Создать пользователя  -->
+<template>
     <div class="overflow-hidden rounded-md">
-
         <div class="px-4 py-1 flex bg-gray-700">
             <h3 class="my-auto text-lg font-medium leading-6 text-gray-400">Создать пользователя</h3>
-
             <!-- Выпадающий список с опциями -->
             <div class="ml-auto h-[49.2px] flex my-auto items-center text-gray-400">
-
                 <OptionsDropdown v-if="userStore.admin == 'admin'" />
-
             </div>
         </div>
 
         <div class="h-[550px] border-t w-full border-gray-700 text-gray-400 overflow-y-auto">
-
             <dl>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium">Имя:</dt>
@@ -45,12 +40,10 @@
                         <AreasWorkDropdown />
                     </dd>
                 </div>
-
                 <!-- Файл или ссылку -->
                 <div>
                     <SummaryLinkOrFile />
                 </div>
-
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Работает сейчас:</dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0 break-words">
@@ -214,15 +207,9 @@ import SocialsMedia from './ShowingFields/SocialsMedia.vue';
 
 import { ref, reactive } from 'vue';
 
-import { useOptionsStore } from '../../../../store/oprionsStore';
 import { useUserStore } from '../../../../store/userStore';
 
 const userStore = useUserStore()
-
-let dialog = false;
-const openDialog = () => {
-    dialog = true;
-}
 
 let pastWorkArray = ref([])
 const addPastWorkData = (data) => {

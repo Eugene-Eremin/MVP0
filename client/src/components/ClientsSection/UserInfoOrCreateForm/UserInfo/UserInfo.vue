@@ -1,19 +1,15 @@
-<template><!-- Информация выбранного пользователя  -->
+<template>
     <div class="overflow-hidden rounded-md">
-
         <div class="px-4 py-1 flex bg-gray-700">
             <h3 class="my-auto text-lg font-medium leading-6 text-gray-400">Выбранный пользователь</h3>
-
             <!-- Выпадающий список с опциями -->
             <div class="ml-auto h-[49.2px] flex my-auto items-center text-gray-400">
-
                 <OptionsDropdown v-if="userStore.admin == 'admin'" />
-
             </div>
         </div>
 
         <div class="h-[550px] border-t border-gray-700 text-gray-400 overflow-y-auto">
-
+            <!-- Пока так-->
             <dl>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium">Имя:</dt>
@@ -32,6 +28,7 @@
                     <dt class="text-sm font-medium ">Сфера поиска работы:</dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0 break-words">Недвижимость</dd>
                 </div>
+                <!-- Показывать в зависимости у пользователя файл или ссылка -->
                 <div v-if="true"
                     class="border-b border-gray-700 bg-gray-800  px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium">Резюме:</dt>
@@ -82,7 +79,9 @@
                                 </div>
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
+                                <!-- Пока так -->
+                                <div v-for="item in 5"
+                                    class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
                                     <div class="m-auto flex-1 p-1">
                                         Google
                                     </div>
@@ -98,39 +97,6 @@
                                         11/11
                                     </div>
                                 </div>
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
-                                    <div class="m-auto flex-1 p-1">
-                                        Google
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        IT
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        Директор
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        2022
-                                        <br>
-                                        11/11
-                                    </div>
-                                </div>
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
-                                    <div class="m-auto flex-1 p-1">
-                                        Google
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        IT
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        Директор
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        2022
-                                        <br>
-                                        11/11
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </dd>
@@ -155,31 +121,9 @@
                                 </div>
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
-                                    <div class="m-auto flex-1 p-1">
-                                        Английский
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        5
-                                    </div>
-                                </div>
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
-                                    <div class="m-auto flex-1 p-1">
-                                        Английский
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        5
-                                    </div>
-                                </div>
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
-                                    <div class="m-auto flex-1 p-1">
-                                        Английский
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        5
-                                    </div>
-                                </div>
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
+                                <!-- Пока так -->
+                                <div v-for="item in 5"
+                                    class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
                                     <div class="m-auto flex-1 p-1">
                                         Английский
                                     </div>
@@ -207,31 +151,9 @@
                                 </div>
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
-                                    <div class="m-auto flex-1 p-1">
-                                        Стрессоустойчивость
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        5
-                                    </div>
-                                </div>
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
-                                    <div class="m-auto flex-1 p-1">
-                                        Стрессоустойчивость
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        5
-                                    </div>
-                                </div>
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
-                                    <div class="m-auto flex-1 p-1">
-                                        Стрессоустойчивость
-                                    </div>
-                                    <div class="m-auto flex-1 p-1">
-                                        5
-                                    </div>
-                                </div>
-                                <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
+                                <!-- Пока так -->
+                                <div v-for="item in 5"
+                                    class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
                                     <div class="m-auto flex-1 p-1">
                                         Стрессоустойчивость
                                     </div>
@@ -259,6 +181,7 @@
                                 </div>
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
+                                <!-- Пока так -->
                                 <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
                                     <div class="m-auto flex-1 p-1">
                                         Linkedin
@@ -273,24 +196,19 @@
                 </div>
             </dl>
         </div>
-
     </div>
 </template>
 
 <script setup>
 import OptionsDropdown from './OptionsDropdown.vue';
 
-import { ref } from 'vue';
-
-import { useOptionsStore } from '../../../../store/oprionsStore';
 import { useUserStore } from '../../../../store/userStore';
 
-const optionsStore = useOptionsStore()
 const userStore = useUserStore()
-
 
 const downloadSelectedResume = () => {
     console.log('Скачать резюме выбранного пользователся')
+    // ...
 }
 
 </script>

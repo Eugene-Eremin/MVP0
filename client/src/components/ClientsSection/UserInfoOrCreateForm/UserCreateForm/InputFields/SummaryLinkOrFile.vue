@@ -1,10 +1,10 @@
 <template>
-    <div v-show="optionsStore.summaryLinkOrFile"
+    <div v-show="summaryLinkOrFile"
         class="border-b border-gray-700 bg-gray-800  px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt class="text-sm font-medium">
             Резюме:
             <br>
-            <button @click="changeSummary(false)"
+            <button @click="changeSummary"
                 class="mt-2 flex flex-row items-center text-gray-400 transition ease-in-out duration-350 w-full border text-sm rounded-md p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 hover:bg-gray-600 active:bg-gray-800">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -19,15 +19,15 @@
             </button>
         </dt>
         <dd class="text-sm pr-5 sm:col-span-2 sm:mt-0">
-            <AddSummaryFile />
+            <AddSummaryFile @file="setFile" />
         </dd>
     </div>
-    <div v-show="!optionsStore.summaryLinkOrFile"
+    <div v-show="!summaryLinkOrFile"
         class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt class="text-sm font-medium ">
             Ссылка на резюме:
             <br>
-            <button @click="changeSummary(true)"
+            <button @click="changeSummary"
                 class="mt-2 flex flex-row items-center text-gray-400 transition ease-in-out duration-350 w-full border text-sm rounded-md p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 hover:bg-gray-600 active:bg-gray-800">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -42,9 +42,7 @@
             </button>
         </dt>
         <dd class="mt-5 text-sm sm:col-span-2 sm:mt-0 break-words">
-            <!-- Тут вывести в общюю инфу -->
-            <!-- in input - v-model="userInfoCreate.summaryLink" -->
-            <input
+            <input v-model="summaryLink"
                 class="transition ease-in-out duration-350 focus:outline-none focus:ring focus:ring-gray-400 focus:border-gray-500 w-full border text-sm rounded-md block p-1 bg-gray-700 border-gray-600 placeholder-gray-400"
                 type="text" />
         </dd>
@@ -54,13 +52,21 @@
 <script setup>
 import AddSummaryFile from './AddSummaryFile.vue';
 
-import { useOptionsStore } from '../../../../../store/oprionsStore';
+import { ref } from 'vue';
 
+let summaryLink = ref('')
+let file = ref(null)
 
-const optionsStore = useOptionsStore()
+const setFile = (event) => {
+    file = event
+    console.log(file)
+}
 
-const changeSummary = (boolean) => {
-    optionsStore.setSummaryLinkOrFile(boolean)
+let summaryLinkOrFile = ref(true)
+
+const changeSummary = () => {
+    if (!summaryLinkOrFile.value) summaryLink = ''; file = null
+    summaryLinkOrFile.value = !summaryLinkOrFile.value
 }
 
 </script>

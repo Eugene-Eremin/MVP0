@@ -80,6 +80,8 @@ watch(() => navbarStore.pathNow, (state) => {
     }
 })
 
+// ---
+
 document.addEventListener("DOMContentLoaded", () => {
     const navbar = document.getElementById("navbar");
     const sidebar = document.getElementById("sidebar");

@@ -1,12 +1,19 @@
 <template>
-    <v-file-input @change="changeFile" variant="underlined"></v-file-input>
+    <v-file-input @change="changeFile" @click:clear="changeFile" variant="underlined"></v-file-input>
 </template>
 
 <script setup>
-let file = []
+
+import { ref } from 'vue';
+
+let file = ref(null)
+
+const emit = defineEmits(['file'])
 
 const changeFile = (event) => {
-    file = event.target.files[0]
-    console.log(file)
+    console.log(event.target.files[0])
+    file.value = event.target.files[0]
+    emit('file', file)
 }
+
 </script>

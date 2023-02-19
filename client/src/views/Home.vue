@@ -8,21 +8,22 @@
                         <p class="text-3xl xl:text-4xl font-semibold leading-9 text-gray-800">MVP0</p>
                     </div>
                     <div class="mt-4 xl:w-3/5">
-                        <p class="text-base leading-6 text-gray-600">MVP0 — это HR-платформа, где вы можете найти работу
-                            или сотрудников в зависимости от ваших потребностей.</p>
+                        <p class="text-base leading-6 text-gray-600">
+                            MVP0 — это HR-платформа, где вы можете найти работу
+                            или сотрудников в зависимости от ваших потребностей.
+                        </p>
                     </div>
                     <div class="mt-16 w-full drop-shadow-2xl">
                         <RouterLink to="/vacancies"
                             class="transition ease-in-out duration-350 px-4 rounded-md bg-gray-900 flex justify-between items-center w-full lg:w-72 h-14  text-white hover:bg-gray-700 outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
                             <p class="text-xl font-medium leading-5">Начать</p>
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.66663 16H25.3333" stroke="white" stroke-width="1.5" stroke-linecap="round"
                                     stroke-linejoin="round" />
-                                <path d="M20 21.3333L25.3333 16" stroke="white" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M20 10.6667L25.3333 16" stroke="white" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M20 21.3333L25.3333 16" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M20 10.6667L25.3333 16" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
                         </RouterLink>
                     </div>
@@ -37,12 +38,11 @@
 </template>
 
 <script setup>
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 import { useNavbarStore } from '../store/navbarStore';
 
 const navbarStore = useNavbarStore()
-
 navbarStore.pathNow = useRoute().path
 
 document.title = 'Главная'

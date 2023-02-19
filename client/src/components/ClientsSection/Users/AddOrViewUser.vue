@@ -1,9 +1,8 @@
 <template>
-    <!-- Добавить пользователя -->
     <div class="lg:ml-auto mr-auto lg:mt-0 mt-1 w-1/3">
-        <button @click="optionsStore.setSelectedOrCreate"
+        <button @click="changeSelectedOrCreate"
             class="flex flex-row items-center text-gray-400 transition ease-in-out duration-350 w-full border text-sm rounded-md p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 hover:bg-gray-600 active:bg-gray-800">
-            <div v-if="optionsStore.selectedOrCreate">
+            <div v-if="props.selectedOrCreate">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -17,7 +16,7 @@
                 </svg>
             </div>
             <div class="ml-2">
-                <div v-if="optionsStore.selectedOrCreate">Добавить пользователя</div>
+                <div v-if="props.selectedOrCreate">Добавить пользователя</div>
                 <div v-else>Назад</div>
             </div>
         </button>
@@ -25,10 +24,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 
-import { useOptionsStore } from '../../../store/oprionsStore';
+const emit = defineEmits(['changeSelectedOrCreate'])
+const changeSelectedOrCreate = () => {
+    emit('changeSelectedOrCreate')
+}
 
-const optionsStore = useOptionsStore()
+const props = defineProps({
+    selectedOrCreate: {
+        type: Boolean,
+        required: true
+    },
+})
 
 </script>
