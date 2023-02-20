@@ -13,13 +13,13 @@
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium">Имя:</dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0 break-words px-4">
-                        <v-text-field density="compact" v-model="userInfoCreate.name" :counter="64" :rules="nameRules" variant="underlined"
+                        <v-text-field maxlength="64" v-model="userInfoCreate.name" :counter="64" :rules="generalRules" variant="underlined"
                             required></v-text-field>
                     </dd>
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Группы пользователя:</dt>
-                    <dd class="text-sm sm:col-span-2 sm:mt-0 break-words">
+                    <dd class="text-sm sm:col-span-2 sm:mt-0 break-words px-4">
                         <!-- Выпадающий список с группами -->
                         <GroupsDropdown />
                     </dd>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Сфера поиска работы:</dt>
-                    <dd class="text-sm sm:col-span-2 sm:mt-0 break-words">
+                    <dd class="text-sm sm:col-span-2 sm:mt-0 break-words px-4">
                         <!-- Выпадающий список с сферами работы -->
                         <AreasWorkDropdown />
                     </dd>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Работает сейчас:</dt>
-                    <dd class="text-sm sm:col-span-2 sm:mt-0 break-words">
+                    <dd class="text-sm sm:col-span-2 sm:mt-0 break-words px-4">
                         <!-- Выпадающий список с выбором - да/нет -->
                         <WorkNowDropdown />
                     </dd>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Уровень образования:</dt>
-                    <dd class="text-sm  sm:col-span-2 sm:mt-0 break-words">
+                    <dd class="text-sm  sm:col-span-2 sm:mt-0 break-words px-4">
                         <!-- Выпадающий список с выбором уровнем образования -->
                         <LevelEducation />
                     </dd>
@@ -249,7 +249,7 @@ const userInfoCreate = reactive({
 
 // ...
 
-const nameRules = [
+const generalRules = [
     v => !!v || 'Обязательное поле'
 ]
 

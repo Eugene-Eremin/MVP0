@@ -1,13 +1,5 @@
 <template>
-    <div>
-        <v-container fluid>
-            <v-row>
-                <v-col cols="12">
-                    <v-combobox v-model="select" :items="items" variant="underlined" multiple></v-combobox>
-                </v-col>
-            </v-row>
-        </v-container>
-    </div>
+    <v-autocomplete v-model="select" :rules="rules" :items="items" variant="underlined" multiple></v-autocomplete>
 </template>
 
 <script>
@@ -18,6 +10,10 @@ export default {
             items: [],
 
             data: [],
+
+            rules: [
+                v => (v.length != 0) || 'Обязательное поле'
+            ]
         }
     },
     watch: {

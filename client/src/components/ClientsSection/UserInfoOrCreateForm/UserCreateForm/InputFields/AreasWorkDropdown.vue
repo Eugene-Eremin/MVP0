@@ -1,14 +1,5 @@
 <template>
-    <div>
-        <v-container fluid>
-            <v-row>
-                <v-col cols="12">
-                    <v-combobox v-model="select" :items="items" variant="underlined"
-                    multiple></v-combobox>
-                </v-col>
-            </v-row>
-        </v-container>
-    </div>
+    <v-autocomplete v-model="select" :rules="rules" :items="items" variant="underlined" multiple></v-autocomplete>
 </template>
 
 <script>
@@ -17,17 +8,20 @@ export default {
         return {
             select: [],
             items: [
+                'Металлургия',
+                'Энергетика',
+                'Сырье',
+                'Нефтегаз',
                 'Недвижимость',
-                'Строительство',
-                'IT',
-                'Юрисдикция',
-                'Кулинария',
-                'Тест 1',
-                'Тест 2',
-                'Тест 3',
-                'Тест 4',
-                'Тест 5',
+                'Фармацевтика',
+                'Транспорт',
+                'Информационные технологии',
+                'Телекоммуникации',
             ],
+
+            rules: [
+                v => (v.length != 0) || 'Обязательное поле'
+            ]
         }
     },
 }

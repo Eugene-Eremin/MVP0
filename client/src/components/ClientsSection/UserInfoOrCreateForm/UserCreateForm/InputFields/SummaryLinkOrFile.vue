@@ -24,7 +24,7 @@
     </div>
     <div v-show="!summaryLinkOrFile"
         class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium ">
+        <dt class="text-sm font-medium">
             Ссылка на резюме:
             <br>
             <button @click="changeSummary"
@@ -41,10 +41,9 @@
                 </div>
             </button>
         </dt>
-        <dd class="mt-5 text-sm sm:col-span-2 sm:mt-0 break-words">
-            <input v-model="summaryLink"
-                class="transition ease-in-out duration-350 focus:outline-none focus:ring focus:ring-gray-400 focus:border-gray-500 w-full border text-sm rounded-md block p-1 bg-gray-700 border-gray-600 placeholder-gray-400"
-                type="text" />
+        <dd class="mt-5 text-sm sm:col-span-2 sm:mt-0 break-words px-4">
+            <v-text-field maxlength="128" v-model="summaryLink" :counter="128" :rules="rules"
+                variant="underlined" required></v-text-field>
         </dd>
     </div>
 </template>
@@ -54,18 +53,34 @@ import AddSummaryFile from './AddSummaryFile.vue';
 
 import { ref } from 'vue';
 
+// ...
+
 let summaryLink = ref(null)
 let file = ref(null)
 
 const setFile = (event) => {
-    event ? file.value = event: file.value = null
+    event ? file.value = event : file.value = null
     console.log(file.value)
 }
 
 let summaryLinkOrFile = ref(true)
-
 const changeSummary = () => {
     summaryLinkOrFile.value = !summaryLinkOrFile.value
 }
+
+const emit = defineEmits(['summaryLink'])
+const changeFile = (event) => {
+    if (event.target.files) {
+        file.value = event.target.files[0]
+        emit('file', file)
+    } else {
+        emit('file', null)
+    }
+}
+
+const rules = [
+    v => !!v || 'Обязательное поле',
+    v => v.slice(0,8) == 'https://' || 'Ссылка невалидна',
+]
 
 </script>

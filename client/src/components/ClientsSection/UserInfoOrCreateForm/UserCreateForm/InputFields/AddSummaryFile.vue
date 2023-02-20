@@ -1,5 +1,5 @@
 <template>
-    <v-file-input @change="changeFile" @click:clear="changeFile"
+    <v-file-input :rules="rules" @change="changeFile" @click:clear="changeFile"
         variant="underlined"></v-file-input>
 </template>
 
@@ -18,4 +18,9 @@ const changeFile = (event) => {
         emit('file', null)
     }
 }
+
+const rules = [
+    v => (v[0]) || 'Обязательное поле'
+]
+
 </script>
