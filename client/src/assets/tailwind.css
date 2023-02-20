@@ -6,13 +6,12 @@
   width: 0px;
 }
 
-/* *::-webkit-scrollbar {
-  overflow: auto;
-  scrollbar-width: thin;
-  scrollbar-color: hsl(0 0% 50%);
+/* 
+*::-webkit-scrollbar {
+  width: 12px;
 }
 
-/* *::-webkit-scrollbar {
+*::-webkit-scrollbar {
   background: rgb(31 41 55);
 }
 
@@ -20,15 +19,5 @@
   background-color: rgb(156 163 175);
   border-radius: 20px;
   border: 4px solid rgb(31 41 55);
-} */
-/* 
-*::-webkit-scrollbar-track {
-  background-color: transparent;
 }
-*::-webkit-scrollbar {
-  width: 12px;
-  background-color: transparent;
-}
-*::-webkit-scrollbar-thumb {
-  background-color: transparent;
-} */
+ */
