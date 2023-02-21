@@ -27,7 +27,7 @@
                     <v-card-text>
                         <v-form ref="form" @submit.prevent>
                             <v-autocomplete v-model="language" :rules="countRules" :items="items" label="Язык"
-                                variant="underlined" required></v-autocomplete>
+                                variant="underlined" item-title="name" return-object required></v-autocomplete>
                             <v-text-field v-model="grade" :rules="countRulesGrade" label="Оценка" required
                                 variant="underlined"></v-text-field>
                             <v-btn type="submit" block color="blue-grey-darken-2" class="mt-4" @click="closeCard(false)">
@@ -48,7 +48,7 @@
 export default {
     data: () => ({
         dialog: false,
-        items: ['Английский', 'Китайский', 'Испанский'],
+        items: [],
 
         language: null,
         grade: null,
@@ -82,6 +82,22 @@ export default {
             const { valid } = await this.$refs.form.validate()
             if (valid) this.closeCard(true)
         },
-    })
+    }),
+    mounted() {
+        // Тут приходят данные с бека
+        // this.items = ...
+        // ...
+
+        // Пока так
+        this.items = [
+            { name: 'Китайский', num: 0 },
+            { name: 'Английский', num: 1 },
+            { name: 'Испанский', num: 2 },
+            { name: 'Арабский', num: 3 },
+            { name: 'Французский', num: 4 },
+            { name: 'Португальский', num: 5 },
+            { name: 'Немецкий', num: 6 },
+        ]
+    },
 }
 </script>

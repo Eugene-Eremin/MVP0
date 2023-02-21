@@ -1,6 +1,6 @@
 <template>
-    <v-autocomplete v-model="select" :rules="rules" :items="items" variant="underlined" item-title="name" return-object
-        multiple></v-autocomplete>
+    <v-autocomplete v-model="select" :rules="rules" :items="items" variant="underlined" item-title="name" item-value="num"
+        return-value multiple></v-autocomplete>
 </template>
 
 <script>
@@ -27,5 +27,10 @@ export default {
             { name: 'Соискатель', num: 2 },
         ]
     },
+    watch: {
+        select() {
+            this.$emit('addGroups', this.select)
+        }
+    }
 }
 </script>

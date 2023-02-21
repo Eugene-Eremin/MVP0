@@ -18,7 +18,7 @@
                 </div>
             </button>
         </dt>
-        <dd class="text-sm pr-5 sm:col-span-2 sm:mt-0">
+        <dd class="text-sm pr-5 sm:col-span-2 sm:mt-0 py-[10px]">
             <AddSummaryFile @file="setFile" />
         </dd>
     </div>
@@ -42,7 +42,7 @@
             </button>
         </dt>
         <dd class="mt-5 text-sm sm:col-span-2 sm:mt-0 break-words px-4">
-            <v-text-field maxlength="128" v-model="summaryLink" :counter="128" :rules="rules"
+            <v-text-field maxlength="128" v-model="summaryLink" @change="selected" :counter="128" :rules="rules"
                 variant="underlined" required></v-text-field>
         </dd>
     </div>
@@ -51,31 +51,30 @@
 <script setup>
 import AddSummaryFile from './AddSummaryFile.vue';
 
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-// ...
+// ---
 
 let summaryLink = ref(null)
 let file = ref(null)
 
 const setFile = (event) => {
     event ? file.value = event : file.value = null
-    console.log(file.value)
+    selected()
 }
+
+const emit = defineEmits(['addSummaryLinkOrFile'])
+
+const selected = () => {
+    summaryLinkOrFile.value ? emit('addSummaryLinkOrFile', file.value): emit('addSummaryLinkOrFile', summaryLink.value)
+}
+
+// ---
 
 let summaryLinkOrFile = ref(true)
 const changeSummary = () => {
     summaryLinkOrFile.value = !summaryLinkOrFile.value
-}
-
-const emit = defineEmits(['summaryLink'])
-const changeFile = (event) => {
-    if (event.target.files) {
-        file.value = event.target.files[0]
-        emit('file', file)
-    } else {
-        emit('file', null)
-    }
+    selected()
 }
 
 const rules = [

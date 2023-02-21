@@ -1,5 +1,5 @@
 <template>
-    <v-autocomplete v-model="select" :rules="rules" :items="items" item-title="name" return-object
+    <v-autocomplete v-model="select" :rules="rules" :items="items" item-title="name" item-value="num" return-value
         variant="underlined"></v-autocomplete>
 </template>
 

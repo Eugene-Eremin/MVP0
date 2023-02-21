@@ -29,8 +29,8 @@
                             <v-form ref="form" @submit.prevent>
                                 <v-text-field v-model="companyName" :rules="countRules" label="Название компании" required
                                     variant="underlined"></v-text-field>
-                                <v-autocomplete v-model="scopeWork" :rules="countRules" :items="items" label="Сфера"
-                                    variant="underlined" required></v-autocomplete>
+                                <v-autocomplete v-model="scopeWork" :rules="countRules" :items="items" item-title="name"
+                                    return-object label="Сфера" variant="underlined" required></v-autocomplete>
                                 <v-text-field v-model="jobTitle" :rules="countRules" label="Должность" required
                                     variant="underlined"></v-text-field>
                                 <v-text-field v-model="beginningWork" label="Начало работы" type="date" :rules="countRules"
@@ -55,17 +55,7 @@
 export default {
     data: () => ({
         dialog: false,
-        items: [
-            'Металлургия',
-            'Энергетика',
-            'Сырье',
-            'Нефтегаз',
-            'Недвижимость',
-            'Фармацевтика',
-            'Транспорт',
-            'Информационные технологии',
-            'Телекоммуникации',
-        ],
+        items: [],
 
         companyName: '',
         scopeWork: null,
@@ -99,6 +89,24 @@ export default {
             const { valid } = await this.$refs.form.validate()
             if (valid) this.closeCard(true)
         },
-    })
+    }),
+    mounted() {
+        // Тут приходят данные с бека
+        // this.items = ...
+        // ...
+
+        // Пока так
+        this.items = [
+            { name: 'Металлургия', num: 0 },
+            { name: 'Энергетика', num: 1 },
+            { name: 'Сырье', num: 2 },
+            { name: 'Нефтегаз', num: 3 },
+            { name: 'Недвижимость', num: 4 },
+            { name: 'Фармацевтика', num: 5 },
+            { name: 'Транспорт', num: 6 },
+            { name: 'Информационные технологии', num: 7 },
+            { name: 'Телекоммуникации', num: 8 },
+        ]
+    },
 }
 </script>

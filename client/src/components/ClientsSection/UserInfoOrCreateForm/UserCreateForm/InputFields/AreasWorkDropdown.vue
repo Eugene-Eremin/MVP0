@@ -1,6 +1,6 @@
 <template>
-    <v-autocomplete v-model="select" :rules="rules" :items="items" item-title="name" return-object variant="underlined"
-        multiple></v-autocomplete>
+    <v-autocomplete v-model="select" :rules="rules" :items="items" item-title="name" item-value="num" return-value
+        variant="underlined" multiple></v-autocomplete>
 </template>
 
 <script>
@@ -33,5 +33,10 @@ export default {
             { name: 'Телекоммуникации', num: 8 },
         ]
     },
+    watch: {
+        select() {
+            this.$emit('addJobSearchAreas', this.select)
+        }
+    }
 }
 </script>

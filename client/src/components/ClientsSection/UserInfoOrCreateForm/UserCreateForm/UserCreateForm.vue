@@ -13,40 +13,40 @@
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium">Имя:</dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0 break-words px-4">
-                        <v-text-field maxlength="64" v-model="userInfoCreate.name" :counter="64" :rules="generalRules" variant="underlined"
-                            required></v-text-field>
+                        <v-text-field maxlength="64" v-model="userInfoCreate.name" :counter="64" :rules="generalRules"
+                            variant="underlined" required></v-text-field>
                     </dd>
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Группы пользователя:</dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0 break-words px-4">
                         <!-- Выпадающий список с группами -->
-                        <GroupsDropdown />
+                        <GroupsDropdown @addGroups="addGroups" />
                     </dd>
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Номер телефона:</dt>
                     <dd class="text-sm  sm:col-span-2 sm:mt-0 break-words px-4">
-                        <v-text-field v-model="userInfoCreate.phoneNumber" v-mask="'+# ### ### ## ##'" :rules="phoneNumberRules" variant="underlined"
-                            required></v-text-field>
+                        <v-text-field v-model="userInfoCreate.phoneNumber" v-mask="'+# ### ### ## ##'"
+                            :rules="phoneNumberRules" variant="underlined" required></v-text-field>
                     </dd>
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Сфера поиска работы:</dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0 break-words px-4">
                         <!-- Выпадающий список с сферами работы -->
-                        <AreasWorkDropdown />
+                        <AreasWorkDropdown @addJobSearchAreas="addJobSearchAreas" />
                     </dd>
                 </div>
                 <!-- Файл или ссылку -->
                 <div>
-                    <SummaryLinkOrFile />
+                    <SummaryLinkOrFile @addSummaryLinkOrFile="addSummaryLinkOrFile" />
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium ">Работает сейчас:</dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0 break-words px-4">
                         <!-- Выпадающий список с выбором - да/нет -->
-                        <WorkNowDropdown />
+                        <WorkNowDropdown @addWorkNow="addWorkNow" />
                     </dd>
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -78,7 +78,7 @@
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
                                 <!-- Список добавленых прошлых работ -->
-                                <PastWorks :pastWorkArray="pastWorkArray" />
+                                <PastWorks class="box" @remove="removePastWork" :pastWorkArray="pastWorkArray" />
                             </div>
                         </div>
                     </dd>
@@ -211,10 +211,43 @@ const userStore = useUserStore()
 
 // ...
 
+const addGroups = (data) => {
+    userInfoCreate.groupsArray = data
+}
+
+const addJobSearchAreas = (data) => {
+    userInfoCreate.jobSearchAreas = data
+}
+
+const addSummaryLinkOrFile = (data) => {
+    if (typeof data == 'object') {
+        userInfoCreate.summaryLink = null
+        userInfoCreate.summaryFile = data
+    } else {
+        userInfoCreate.summaryFile = null
+        userInfoCreate.summaryLink = data
+    }
+}
+
+const addWorkNow = (data) => {
+    userInfoCreate.workNow = data
+}
+
+// -
 let pastWorkArray = ref([])
 const addPastWorkData = (data) => {
+    let thisData = { ...data }
     pastWorkArray.value = [...pastWorkArray.value, data]
+    thisData.scopeWork = thisData.scopeWork.num
+    userInfoCreate.lastJobs = [...userInfoCreate.lastJobs, thisData]
 }
+
+const removePastWork = (removeIndex) => {
+    let thisRemoveIndex = removeIndex
+    pastWorkArray.value = pastWorkArray.value.filter((el, index) => { return index !== thisRemoveIndex });
+    userInfoCreate.lastJobs = [...pastWorkArray.value]
+}
+// -
 
 let ownedSkillArray = ref([])
 const addOwnedSkill = (data) => {
@@ -231,16 +264,17 @@ const addSocialMedia = (data) => {
     socialMediaArray.value = [...socialMediaArray.value, data]
 }
 
-// все сюда объединить
+// Информация о создаваемом пользователе
 const userInfoCreate = reactive({
-    name: null, // ввод вручную имени...
-    groups: null, // ??? [0 (админ), 2(работодатель)] - будет выбирать из выпад. списка
-    phoneNumber: null, // ввод вручную только цифры...
-    searchScopeJob: null, // 1 (недвижимость) или 3 (строительство) - выбирает из выпад. списка
-    summary: null, // функционал загрузки файла и закрепления его за этим пользователем
-    summaryLink: null, // или вместо файла ссылка на резюме в ручную
-    workNow: null, // true (да) или false (нет)
-    lastJobs: null, // [ { companyName: 'Google', ...: 'IT', ...: 'Директор', ...: '2004-07-31'}, {...}, ...]
+    name: '', // ввод вручную имени...
+    groupsArray: [], // [0 (админ), 2(соискатель)] - выбирает из выпад. списка...
+    phoneNumber: '', // ввод вручную номера...
+    // Number(number.substring(1, number.length).split(' ').join(''))
+    jobSearchAreas: [], // [1 (Недвижимость), 4 (Энергетика)] - выбирает из выпад. списка...
+    summaryFile: {}, // объект файла или...
+    summaryLink: '', // ...ссылка на файл
+    workNow: null, // 1 (да) или 0 (нет)
+    lastJobs: [], // ? [ { companyName: 'Google', ...: 'IT', ...: 'Директор', ...: '2004-07-31'}, {...}, ...]
     eucationLevel: null, // 1 (высшее), 2 (среднее)
     spokenLanguages: null, // [ {...}, ...]
     ownedSkills: null, // [ {...}, ...]

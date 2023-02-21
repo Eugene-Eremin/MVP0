@@ -1,5 +1,5 @@
 <template>
-    <v-autocomplete v-model="select" :rules="rules" :items="items" item-title="name" return-object
+    <v-autocomplete v-model="select" :rules="rules" :items="items" item-title="name" item-value="num" return-value
         variant="underlined"></v-autocomplete>
 </template>
 
@@ -7,24 +7,21 @@
 export default {
     data() {
         return {
-            select: [],
-            items: [],
+            select: null,
+            items: [
+                { name: 'Нет', num: 0 },
+                { name: 'Да', num: 1 },
+            ],
 
             rules: [
-                v => !!v || 'Обязательное поле'
+                v => (v.length != 0) || 'Обязательное поле'
             ]
         }
     },
-    mounted() {
-        // Тут приходят данные с бека
-        // this.items = ...
-        // ...
-
-        // Пока так
-        this.items = [
-            { name: 'Нет', num: 0 },
-            { name: 'Да', num: 1 },
-        ]
-    },
+    watch: {
+        select() {
+            this.$emit('addWorkNow', this.select)
+        }
+    }
 }
 </script>
