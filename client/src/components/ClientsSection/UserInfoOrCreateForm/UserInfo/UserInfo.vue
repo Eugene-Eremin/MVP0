@@ -10,7 +10,7 @@
 
         <div class="h-[550px] border-t border-gray-700 text-gray-400 overflow-y-auto">
             <!-- Пока так-->
-            <dl>
+            <dl class="2xl:w-[517.6px] xl:w-[462.25px]">
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium">Имя:</dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0 break-words">Сергей Сергеев Сергеевич</dd>

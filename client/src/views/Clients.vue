@@ -2,7 +2,7 @@
     <div class="flex flex-col xl:flex-row justify-center items-start">
         <!-- Пользователи -->
         <div class="w-[370px] 0.5sm:w-[490px] md:w-[750px] mx-auto p-10 drop-shadow-2xl lg:w-3/5">
-            <div class="pb-4 flex flex-col lg:flex-row items-center">
+            <div class="pb-4 flex flex-col 1.8xl:flex-row items-center">
                 <!-- Search форма -->
                 <SearchForm />
                 <!-- Кнопка добавить пользователя -->

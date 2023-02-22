@@ -9,7 +9,7 @@
         </div>
 
         <div class="h-[550px] border-t w-full border-gray-700 text-gray-400 overflow-y-auto">
-            <dl>
+            <dl class="2xl:w-[517.6px] xl:w-[462.25px]">
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium">Имя:</dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0 break-words px-4">
@@ -78,7 +78,8 @@
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
                                 <!-- Список добавленых прошлых работ -->
-                                <PastWorks class="box" @remove="removePastWork" :pastWorkArray="pastWorkArray" />
+                                <PastWorks @remove="removePastWork" @changePastWork="changePastWork"
+                                    :pastWorkArray="pastWorkArray" />
                             </div>
                         </div>
                     </dd>
@@ -198,7 +199,7 @@ import AddSpokenLanguage from './InputFields/AddSpokenLanguage.vue';
 import AddOwnedSkill from './InputFields/AddOwnedSkill.vue';
 import AddSocialMedia from './InputFields/AddSocialMedia.vue';
 
-import PastWorks from './ShowingFields/PastWorks.vue'
+import PastWorks from './ShowingFields/PastWorks/PastWorks.vue';
 import SpokenLanguages from './ShowingFields/SpokenLanguages.vue';
 import OwnedSkills from './ShowingFields/OwnedSkills.vue';
 import SocialsMedia from './ShowingFields/SocialsMedia.vue';
@@ -244,8 +245,15 @@ const addPastWorkData = (data) => {
 
 const removePastWork = (removeIndex) => {
     let thisRemoveIndex = removeIndex
+    userInfoCreate.lastJobs = userInfoCreate.lastJobs.filter((el, index) => { return index !== thisRemoveIndex });
     pastWorkArray.value = pastWorkArray.value.filter((el, index) => { return index !== thisRemoveIndex });
-    userInfoCreate.lastJobs = [...pastWorkArray.value]
+}
+
+const changePastWork = (object) => {
+    let thisObjectData = { ...object.data }
+    pastWorkArray.value[object.index] = object.data
+    thisObjectData.scopeWork = thisObjectData.scopeWork.num
+    userInfoCreate.lastJobs[object.index] = thisObjectData
 }
 // -
 
