@@ -1,5 +1,5 @@
 <template>
-    <div class="lg:ml-auto mr-auto mt-4 w-full sm:w-1/2 lg:w-1/3">
+    <div class="1.8xl:ml-auto mr-auto mt-1 w-full sm:w-1/2 lg:w-1/3">
         <button @click="changeSelectedOrCreate"
             class="flex flex-row items-center text-gray-400 mr-auto transition ease-in-out duration-350 w-full border text-sm rounded-md p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 hover:bg-gray-600 active:bg-gray-800">
             <div v-if="props.selectedOrCreate">

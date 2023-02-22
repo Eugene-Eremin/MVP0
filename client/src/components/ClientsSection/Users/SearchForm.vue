@@ -1,5 +1,5 @@
 <template>
-    <div class="relative mt-1 text-gray-400 w-full lg:mr-4">
+    <div class="relative mt-1 text-gray-400 w-full 1.8xl:mr-4">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"

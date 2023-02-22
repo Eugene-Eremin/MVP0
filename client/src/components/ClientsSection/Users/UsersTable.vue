@@ -1,6 +1,6 @@
 <template>
-    <div class="overflow-y-scroll md:w-auto md:h-[545px] ">
-        <table class="w-max 1.5xl:w-full text-center text-sm text-gray-400">
+    <div class="overflow-y-scroll md:w-auto 1.8xl:h-[545px] h-[488px]">
+        <table class="w-full text-center text-sm text-gray-400">
             <thead class="text-xs uppercase bg-gray-700">
                 <tr>
                     <th class="px-6 py-3">
@@ -22,7 +22,7 @@
             <tbody class="mt-10">
                 <!-- Пока так -->
                 <tr v-for="item in 10"
-                    class="cursor-pointer transition ease-in-out duration-350 border-b bg-gray-800 border-red-700 hover:bg-gray-600">
+                    class="cursor-pointer transition ease-in-out duration-350 border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
                     <td @click="openUser" class="px-6 py-3">
                         +7 900 000 00 00
                     </td>
