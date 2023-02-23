@@ -8,8 +8,6 @@
 <script setup>
 import PastWorksItem from './PastWorksItem.vue';
 
-import { ref } from 'vue';
-
 const props = defineProps({
     pastWorkArray: {
         type: Array,

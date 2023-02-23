@@ -10,7 +10,7 @@
 
         <div class="h-[550px] border-t w-full border-gray-700 text-gray-400 overflow-x-hidden overflow-y-auto">
             <!-- class="2xl:w-[517.6px] xl:w-[462.25px]" -->
-            <dl class="  max-w-none "> 
+            <dl class="  max-w-none ">
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium">Имя:</dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0 break-words px-4">
@@ -117,7 +117,8 @@
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
                                 <!-- Список добавленых языков -->
-                                <SpokenLanguages :spokenLanguageArray="spokenLanguageArray" />
+                                <SpokenLanguages @remove="removeSpokenLanguage" @changeSpokenLanguage="changeSpokenLanguage"
+                                    :spokenLanguageArray="spokenLanguageArray" />
                             </div>
                         </div>
                     </dd>
@@ -147,7 +148,8 @@
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
                                 <!-- Список добавленых навыков -->
-                                <OwnedSkills :ownedSkillArray="ownedSkillArray" />
+                                <OwnedSkills @remove="removeOwnedSkill" @changeOwnedSkill="changeOwnedSkill"
+                                    :ownedSkillArray="ownedSkillArray" />
                             </div>
                         </div>
                     </dd>
@@ -201,9 +203,9 @@ import AddOwnedSkill from './InputFields/AddOwnedSkill.vue';
 import AddSocialMedia from './InputFields/AddSocialMedia.vue';
 
 import PastWorks from './ShowingFields/PastWorks/PastWorks.vue';
-import SpokenLanguages from './ShowingFields/SpokenLanguages.vue';
-import OwnedSkills from './ShowingFields/OwnedSkills.vue';
-import SocialsMedia from './ShowingFields/SocialsMedia.vue';
+import SpokenLanguages from './ShowingFields/SpokenLanguages/SpokenLanguages.vue';
+import OwnedSkills from './ShowingFields/OwnedSkills/OwnedSkills.vue';
+import SocialsMedia from './ShowingFields/SocialsMedia/SocialsMedia.vue';
 
 import { ref, reactive } from 'vue';
 
@@ -236,6 +238,7 @@ const addWorkNow = (data) => {
 }
 
 // -
+
 let pastWorkArray = ref([])
 const addPastWorkData = (data) => {
     let thisData = { ...data }
@@ -256,17 +259,55 @@ const changePastWork = (object) => {
     thisObjectData.scopeWork = thisObjectData.scopeWork.num
     userInfoCreate.lastJobs[object.index] = thisObjectData
 }
-// -
 
-let ownedSkillArray = ref([])
-const addOwnedSkill = (data) => {
-    ownedSkillArray.value = [...ownedSkillArray.value, data]
-}
+// -
 
 let spokenLanguageArray = ref([])
 const addSpokenLanguage = (data) => {
+    let thisData = { ...data }
     spokenLanguageArray.value = [...spokenLanguageArray.value, data]
+    thisData.language = thisData.language.num
+    userInfoCreate.spokenLanguages = [...userInfoCreate.spokenLanguages, thisData]
 }
+
+const removeSpokenLanguage = (removeIndex) => {
+    let thisRemoveIndex = removeIndex
+    userInfoCreate.spokenLanguages = userInfoCreate.spokenLanguages.filter((el, index) => { return index !== thisRemoveIndex });
+    spokenLanguageArray.value = spokenLanguageArray.value.filter((el, index) => { return index !== thisRemoveIndex });
+}
+
+const changeSpokenLanguage = (object) => {
+    let thisObjectData = { ...object.data }
+    spokenLanguageArray.value[object.index] = object.data
+    thisObjectData.language = thisObjectData.language.num
+    userInfoCreate.spokenLanguages[object.index] = thisObjectData
+}
+
+// -
+
+// Даделать в папке OwnedSkills 
+let ownedSkillArray = ref([])
+const addOwnedSkill = (data) => {
+    let thisData = { ...data }
+    ownedSkillArray.value = [...ownedSkillArray.value, data]
+    thisData.skill = thisData.skill.num
+    userInfoCreate.ownedSkills = [...userInfoCreate.ownedSkills, thisData]
+}
+
+const removeOwnedSkill = (removeIndex) => {
+    let thisRemoveIndex = removeIndex
+    userInfoCreate.ownedSkills = userInfoCreate.ownedSkills.filter((el, index) => { return index !== thisRemoveIndex });
+    ownedSkillArray.value = ownedSkillArray.value.filter((el, index) => { return index !== thisRemoveIndex });
+}
+
+const changeOwnedSkill = (object) => {
+    let thisObjectData = { ...object.data }
+    ownedSkillArray.value[object.index] = object.data
+    thisObjectData.skill = thisObjectData.skill.num
+    userInfoCreate.ownedSkills[object.index] = thisObjectData
+}
+
+// -
 
 let socialMediaArray = ref([])
 const addSocialMedia = (data) => {
@@ -275,19 +316,19 @@ const addSocialMedia = (data) => {
 
 // Информация о создаваемом пользователе
 const userInfoCreate = reactive({
-    name: '', // ввод вручную имени...
-    groupsArray: [], // [0 (админ), 2(соискатель)] - выбирает из выпад. списка...
-    phoneNumber: '', // ввод вручную номера...
+    name: '',
+    groupsArray: [],
+    phoneNumber: '',
     // Number(number.substring(1, number.length).split(' ').join(''))
-    jobSearchAreas: [], // [1 (Недвижимость), 4 (Энергетика)] - выбирает из выпад. списка...
-    summaryFile: {}, // объект файла или...
-    summaryLink: '', // ...ссылка на файл
-    workNow: null, // 1 (да) или 0 (нет)
-    lastJobs: [], // ? [ { companyName: 'Google', ...: 'IT', ...: 'Директор', ...: '2004-07-31'}, {...}, ...]
-    eucationLevel: null, // 1 (высшее), 2 (среднее)
-    spokenLanguages: null, // [ {...}, ...]
-    ownedSkills: null, // [ {...}, ...]
-    socialMedia: null, // [ {...}, ...]
+    jobSearchAreas: [],
+    summaryFile: {},
+    summaryLink: '',
+    workNow: null,
+    lastJobs: [],
+    eucationLevel: null,
+    spokenLanguages: [],
+    ownedSkills: [], // ?
+    socialMedia: null,
 })
 
 // ...
