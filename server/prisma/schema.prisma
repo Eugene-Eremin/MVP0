@@ -1,6 +1,8 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// ================================================================
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,3 +11,146 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// ================================================================
+
+// Часть таблиц о польозвателях
+
+model users {
+  id                      Int                       @id @default(autoincrement())
+  email                   String?                   @unique
+  phoneNumber             Int?                      @unique
+  isEmailActivated        Boolean?                  @default(false)
+  isPhoneNumberActivated  Boolean?                  @default(false)
+  activationLink          String?
+  activationCode          Int?
+  tokens                  tokens?
+  infoUsers               infoUsers?
+  pastWorks               pastWorks[]
+  spokenLanguages         spokenLanguages[]
+  ownedSkills             ownedSkills[]
+  socialNetworksWithLinks socialNetworksWithLinks[]
+  groups                  groups[]
+}
+
+// Тут хранится jwt refresh tokens
+model tokens {
+  id           Int    @id @default(autoincrement())
+  users        users  @relation(fields: [userId], references: [id])
+  userId       Int    @unique
+  refreshToken String
+}
+
+model infoUsers {
+  id                 Int              @id @default(autoincrement())
+  users              users?           @relation(fields: [userId], references: [id])
+  userId             Int?             @unique
+  name               String
+  email              String?          @unique
+  phoneNumber        Int?             @unique
+  areasOfWork        areasOfWork      @relation(fields: [searchAreaOfWorkId], references: [id])
+  searchAreaOfWorkId Int
+  fileSummaryKey     String?
+  fileSummaryName    String?
+  summaryLink        String?
+  workingNow         Boolean
+  levelOfEducation   levelOfEducation @relation(fields: [levelOfEducationId], references: [id])
+  levelOfEducationId Int
+}
+
+model pastWorks {
+  id           Int         @id @default(autoincrement())
+  users        users?      @relation(fields: [userId], references: [id])
+  userId       Int?
+  lastJobName  String
+  areasOfWork  areasOfWork @relation(fields: [areaOfWorkId], references: [id])
+  areaOfWorkId Int
+  jobTitle     String
+  startedWork  DateTime    @db.Date
+}
+
+model spokenLanguages {
+  id         Int       @id @default(autoincrement())
+  users      users?    @relation(fields: [userId], references: [id])
+  userId     Int?
+  languages  languages @relation(fields: [languageId], references: [id])
+  languageId Int
+  estimation Int
+}
+
+model ownedSkills {
+  id         Int    @id @default(autoincrement())
+  users      users? @relation(fields: [userId], references: [id])
+  userId     Int?
+  skills     skills @relation(fields: [skillId], references: [id])
+  skillId    Int
+  estimation Int
+}
+
+model socialNetworksWithLinks {
+  id              Int            @id @default(autoincrement())
+  users           users?         @relation(fields: [userId], references: [id])
+  userId          Int?
+  socialNetworks  socialNetworks @relation(fields: [socialNetworkId], references: [id])
+  socialNetworkId Int
+  link            String         @unique
+}
+
+model groups {
+  id          Int        @id @default(autoincrement())
+  users       users?     @relation(fields: [userId], references: [id])
+  userId      Int?
+  groupNames  groupNames @relation(fields: [groupNameId], references: [id])
+  groupNameId Int
+}
+
+// Часть таблиц о вакансиях
+// ...
+
+// Часть общих таблиц для пользователей и
+// вакансий, где хранятся сферы работ, скилы и т.д... 
+
+model areasOfWork {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  skills    skills[]
+  infoUsers infoUsers[]
+  pastWorks pastWorks[]
+}
+
+model skills {
+  id           Int           @id @default(autoincrement())
+  areasOfWork  areasOfWork   @relation(fields: [areaOfWorkId], references: [id])
+  areaOfWorkId Int
+  name         String        @unique
+  ownedSkills  ownedSkills[]
+}
+
+model levelOfEducation {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  infoUsers infoUsers[]
+}
+
+model languages {
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  spokenLanguages spokenLanguages[]
+}
+
+// Таблицы для пользователей
+
+model socialNetworks {
+  id                      Int                       @id @default(autoincrement())
+  name                    String                    @unique
+  socialNetworksWithLinks socialNetworksWithLinks[]
+}
+
+model groupNames {
+  id    Int      @id @default(autoincrement())
+  name  String   @unique
+  goups groups[]
+}
+
+// Таблицы для вакансий
+// ...
