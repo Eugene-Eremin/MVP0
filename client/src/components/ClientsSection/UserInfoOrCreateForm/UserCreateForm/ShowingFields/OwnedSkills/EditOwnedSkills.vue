@@ -83,8 +83,8 @@ export default {
             }
 
             this.dialog = false
-            this.skill = ''
-            this.grade = null
+            this.skill = this.origin.skill
+            this.grade = this.origin.grade
         },
         async validate() {
             const { valid } = await this.$refs.form.validate()

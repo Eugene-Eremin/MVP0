@@ -79,8 +79,8 @@ export default {
             }
 
             this.dialog = false
-            this.language = ''
-            this.grade = null
+            this.language = this.origin.language
+            this.grade = this.origin.grade
         },
         async validate() {
             const { valid } = await this.$refs.form.validate()

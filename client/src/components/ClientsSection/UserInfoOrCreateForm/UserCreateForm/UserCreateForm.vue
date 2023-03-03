@@ -180,7 +180,8 @@
                             </div>
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
                                 <!-- Список добавленых соц. сетей -->
-                                <SocialsMedia :socialMediaArray="socialMediaArray" />
+                                <SocialsMedia :socialMediaArray="socialMediaArray" @remove="removeSocialMedia"
+                                    @changeSocialMedia="changeSocialMedia" />
                             </div>
                         </div>
                     </dd>
@@ -247,6 +248,7 @@ const addLevelEducation = (data) => {
 // -
 
 let pastWorkArray = ref([])
+
 const addPastWorkData = (data) => {
     let thisData = { ...data }
     pastWorkArray.value = [...pastWorkArray.value, data]
@@ -270,6 +272,7 @@ const changePastWork = (object) => {
 // -
 
 let spokenLanguageArray = ref([])
+
 const addSpokenLanguage = (data) => {
     let thisData = { ...data }
     spokenLanguageArray.value = [...spokenLanguageArray.value, data]
@@ -293,6 +296,7 @@ const changeSpokenLanguage = (object) => {
 // -
 
 let ownedSkillArray = ref([])
+
 const addOwnedSkill = (data) => {
     let thisData = { ...data }
     ownedSkillArray.value = [...ownedSkillArray.value, data]
@@ -316,9 +320,28 @@ const changeOwnedSkill = (object) => {
 // -
 
 let socialMediaArray = ref([])
+
 const addSocialMedia = (data) => {
+    let thisData = { ...data }
     socialMediaArray.value = [...socialMediaArray.value, data]
+    thisData.socialMediaName = thisData.socialMediaName.num
+    userInfoCreate.socialMedia = [...userInfoCreate.socialMedia, thisData]
 }
+
+const removeSocialMedia = (removeIndex) => {
+    let thisRemoveIndex = removeIndex
+    userInfoCreate.socialMedia = userInfoCreate.socialMedia.filter((el, index) => { return index !== thisRemoveIndex });
+    socialMediaArray.value = socialMediaArray.value.filter((el, index) => { return index !== thisRemoveIndex });
+}
+
+const changeSocialMedia = (object) => {
+    let thisObjectData = { ...object.data }
+    socialMediaArray.value[object.index] = object.data
+    thisObjectData.socialMediaName = thisObjectData.socialMediaName.num
+    userInfoCreate.socialMedia[object.index] = thisObjectData
+}
+
+// -
 
 // Информация о создаваемом пользователе
 const userInfoCreate = reactive({
@@ -333,8 +356,8 @@ const userInfoCreate = reactive({
     lastJobs: [],
     eucationLevel: null,
     spokenLanguages: [],
-    ownedSkills: [], // ?
-    socialMedia: null,
+    ownedSkills: [],
+    socialMedia: [],
 })
 
 // ...

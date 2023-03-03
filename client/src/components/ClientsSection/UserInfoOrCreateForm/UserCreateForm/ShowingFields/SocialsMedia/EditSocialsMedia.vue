@@ -13,20 +13,17 @@
                 <v-card>
                     <v-card-title>
                         <div class="mt-2">
-                            <span class="text-h5">Изменить данные прошлой работы</span>
+                            <span class="text-h5">Изменить данные о социальной сети</span>
                         </div>
                     </v-card-title>
                     <div class="p-2">
                         <v-card-text>
                             <v-form ref="form" @submit.prevent>
-                                <v-text-field v-model="companyName" :rules="countRules" label="Название компании" required
+                                <v-autocomplete v-model="socialMediaName" :rules="countRules" :items="items"
+                                    label="Социальная сеть" variant="underlined" item-title="name" return-object
+                                    required></v-autocomplete>
+                                <v-text-field v-model="link" :rules="countRules" label="Ссылка на профиль" required
                                     variant="underlined"></v-text-field>
-                                <v-autocomplete v-model="scopeWork" :rules="countRules" :items="items" item-title="name"
-                                    return-object label="Сфера" variant="underlined" required></v-autocomplete>
-                                <v-text-field v-model="jobTitle" :rules="countRules" label="Должность" required
-                                    variant="underlined"></v-text-field>
-                                <v-text-field v-model="beginningWork" label="Начало работы" type="date" :rules="countRules"
-                                    required variant="underlined"></v-text-field>
                                 <v-btn type="submit" block color="blue-grey-darken-2" class="mt-4"
                                     @click="closeCard(false)">
                                     Назад
@@ -57,14 +54,10 @@ export default {
     },
     data: () => ({
         dialog: false,
-        items: [],
+        items: null,
 
-        origin: {},
-
-        companyName: '',
-        scopeWork: null,
-        jobTitle: '',
-        beginningWork: '',
+        link: null,
+        socialMediaName: null,
 
         countRules: [
             v => !!v || 'Обязательное поле'
@@ -74,39 +67,31 @@ export default {
         closeCard(boolean) {
             if (boolean) {
                 const data = {
-                    companyName: this.companyName,
-                    scopeWork: this.scopeWork,
-                    jobTitle: this.jobTitle,
-                    beginningWork: this.beginningWork,
+                    link: this.link,
+                    socialMediaName: this.socialMediaName
                 }
                 console.log(data)
-                this.$emit("changePastWork", data)
+                this.$emit("changeSocialMedia", data)
             }
 
             this.dialog = false
-            this.companyName = this.origin.companyName
-            this.scopeWork = this.origin.scopeWork
-            this.jobTitle = this.origin.jobTitle
-            this.beginningWork = this.origin.beginningWork
+            this.link = this.origin.link
+            this.socialMediaName = this.origin.socialMediaName
         },
         async validate() {
             const { valid } = await this.$refs.form.validate()
             if (valid) this.closeCard(true)
         },
         setData() {
-            console.log(this.pastWork)
+            console.log(this.socialMedia)
 
             this.origin = {
-                companyName: this.pastWork.companyName,
-                scopeWork: this.pastWork.scopeWork,
-                jobTitle: this.pastWork.jobTitle,
-                beginningWork: this.pastWork.beginningWork,
+                link: this.socialMedia.link,
+                socialMediaName: this.socialMedia.socialMediaName,
             }
 
-            this.companyName = this.pastWork.companyName
-            this.scopeWork = this.pastWork.scopeWork
-            this.jobTitle = this.pastWork.jobTitle
-            this.beginningWork = this.pastWork.beginningWork
+            this.link = this.socialMedia.link
+            this.socialMediaName = this.socialMedia.socialMediaName
         }
     }),
     watch: {
@@ -123,15 +108,10 @@ export default {
 
         // Пока так
         this.items = [
-            { name: 'Металлургия', num: 0 },
-            { name: 'Энергетика', num: 1 },
-            { name: 'Сырье', num: 2 },
-            { name: 'Нефтегаз', num: 3 },
-            { name: 'Недвижимость', num: 4 },
-            { name: 'Фармацевтика', num: 5 },
-            { name: 'Транспорт', num: 6 },
-            { name: 'Информационные технологии', num: 7 },
-            { name: 'Телекоммуникации', num: 8 },
+            { name: 'LinkedIn', num: 0 },
+            { name: 'VK', num: 1 },
+            { name: 'Facebook', num: 2 },
+            { name: 'Telegram', num: 3 },
         ]
     },
 }

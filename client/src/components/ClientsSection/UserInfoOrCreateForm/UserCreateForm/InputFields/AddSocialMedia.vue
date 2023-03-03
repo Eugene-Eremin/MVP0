@@ -26,8 +26,8 @@
                 <div class="p-2">
                     <v-card-text>
                         <v-form ref="form" @submit.prevent>
-                            <v-autocomplete v-model="socialMediaName" :rules="countRules" :items="items"
-                                label="Социальная сеть" variant="underlined" required></v-autocomplete>
+                            <v-autocomplete v-model="socialMediaName" :rules="countRules" :items="items" item-title="name"
+                                return-object label="Социальная сеть" variant="underlined" required></v-autocomplete>
                             <v-text-field v-model="link" :rules="countRules" label="Ссылка на профиль" required
                                 variant="underlined"></v-text-field>
                             <v-btn type="submit" block color="blue-grey-darken-2" class="mt-4" @click="closeCard(false)">

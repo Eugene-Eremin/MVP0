@@ -8,26 +8,27 @@
                 </div>
             </button>
             <div class="mt-3 ml-3">
-                <EditPastWork :pastWork="pastWork" :index="index" @changePastWork="emitGoSecond" />
+                <EditSocialsMedia :socialMedia="socialMedia" :index="index" @changeSocialMedia="emitGoSecond" />
             </div>
         </div>
-        <div class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
+        <div class="mb-2 flex flex-row rounded-md rounded-tl-none overflow-hidden border border-gray-700">
             <div class="m-auto flex-1 p-1">
-                {{ socialMedia.socialMediaName }}
+                {{ props.socialMedia.socialMediaName.name }}
             </div>
             <div class="m-auto flex-1 p-1">
-                {{ socialMedia.link }}
+                {{ props.socialMedia.link }}
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import EditSocialsMedia from './EditSocialsMedia.vue';
 
 import { ref } from 'vue';
 
 const props = defineProps({
-    pastWork: {
+    socialMedia: {
         type: Object,
         required: true
     },
@@ -37,12 +38,12 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['remove', 'changePastWork'])
+const emit = defineEmits(['remove', 'changeSocialMedia'])
 const emitGo = () => {
     emit('remove', props.index)
 }
 const emitGoSecond = (data) => {
-    emit('changePastWork', { index: props.index, data: data })
+    emit('changeSocialMedia', { index: props.index, data: data })
 }
 
 let change = ref(false)
