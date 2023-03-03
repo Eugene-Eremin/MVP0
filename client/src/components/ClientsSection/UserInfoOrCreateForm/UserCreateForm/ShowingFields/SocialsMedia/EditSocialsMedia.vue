@@ -46,7 +46,7 @@
 <script>
 export default {
     props: {
-        pastWork: {
+        socialMedia: {
             type: Object,
             required: true
         },

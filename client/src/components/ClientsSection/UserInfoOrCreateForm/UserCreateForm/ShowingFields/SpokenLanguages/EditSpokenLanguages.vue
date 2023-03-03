@@ -86,17 +86,25 @@ export default {
             const { valid } = await this.$refs.form.validate()
             if (valid) this.closeCard(true)
         },
-    }),
-    mounted() {
-        console.log(this.spokenLanguage)
+        setData() {
+            console.log(this.spokenLanguage)
 
-        this.origin = {
-            language: this.spokenLanguage.language,
-            grade: this.spokenLanguage.grade,
+            this.origin = {
+                language: this.spokenLanguage.language,
+                grade: this.spokenLanguage.grade,
+            }
+
+            this.language = this.spokenLanguage.language
+            this.grade = this.spokenLanguage.grade
         }
-
-        this.language = this.spokenLanguage.language
-        this.grade = this.spokenLanguage.grade
+    }),
+    watch: {
+        spokenLanguage() {
+            this.setData()
+        }
+    },
+    mounted() {
+        this.setData()
 
         // Тут приходят данные с бека
         // this.items = ...

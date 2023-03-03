@@ -68,7 +68,7 @@ export default {
             if (boolean) {
                 const data = {
                     language: this.language,
-                    grade: this.grade
+                    grade: Number(this.grade)
                 }
                 console.log(data)
                 this.$emit("addSpokenLanguage", data)
@@ -76,7 +76,7 @@ export default {
 
             this.dialog = false
             this.language = ''
-            this.grade = null
+            this.grade = 0
         },
         async validate() {
             const { valid } = await this.$refs.form.validate()

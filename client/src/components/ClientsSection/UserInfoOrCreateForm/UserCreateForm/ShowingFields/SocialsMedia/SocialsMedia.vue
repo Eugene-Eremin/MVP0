@@ -1,15 +1,10 @@
 <template>
-    <div v-for="socialMedia, index in props.socialMediaArray" :key="index" class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
-        <div class="m-auto flex-1 p-1">
-            {{ socialMedia.socialMediaName }}
-        </div>
-        <div class="m-auto flex-1 p-1">
-            {{ socialMedia.link }}
-        </div>
-    </div>
+    <SocialsMediaItem v-for="socialMedia, index in props.socialMediaArray" :key="index" @remove="emitGo"
+        @changeSocialMedia="emitGoSecond" :socialMedia="socialMedia" :index="index" />
 </template>
 
 <script setup>
+import SocialsMediaItem from './SocialsMediaItem.vue';
 
 const props = defineProps({
     socialMediaArray: {
@@ -17,5 +12,13 @@ const props = defineProps({
         required: true
     }
 })
+
+const emit = defineEmits(['remove', 'changeSocialMedia'])
+const emitGo = (index) => {
+    emit('remove', index)
+}
+const emitGoSecond = (object) => {
+    emit('changeSocialMedia', object)
+}
 
 </script>

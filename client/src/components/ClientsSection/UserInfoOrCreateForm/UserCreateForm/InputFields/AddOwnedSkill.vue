@@ -69,7 +69,7 @@ export default {
             if (boolean) {
                 const data = {
                     skill: this.skill,
-                    grade: this.grade
+                    grade: Number(this.grade)
                 }
                 console.log(data)
                 this.$emit("addOwnedSkill", data)
