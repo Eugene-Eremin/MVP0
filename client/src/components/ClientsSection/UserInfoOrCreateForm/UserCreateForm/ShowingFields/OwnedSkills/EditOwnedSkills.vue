@@ -42,7 +42,10 @@
 <script>
 export default {
     props: {
-        jobSearchAreas: Number,
+        jobSearchAreas: {
+            type: Number,
+            required: true,
+        },
         ownedSkill: {
             type: Object,
             required: true
@@ -64,7 +67,6 @@ export default {
         ],
         countRulesGrade: [
             v => !!v || 'Обязательное поле',
-            v => (typeof v !== 'number') || 'Неверный тип данных',
             v => (v < 11) || 'Оценка должна быть от 0 до 10',
             v => (v > -1) || 'Оценка должна быть от 0 до 10',
         ]
@@ -88,25 +90,6 @@ export default {
             const { valid } = await this.$refs.form.validate()
             if (valid) this.closeCard(true)
         },
-
-        closeCard(boolean) {
-            if (boolean) {
-                const data = {
-                    companyName: this.companyName,
-                    scopeWork: this.scopeWork,
-                    jobTitle: this.jobTitle,
-                    beginningWork: this.beginningWork,
-                }
-                console.log(data)
-                this.$emit("changePastWork", data)
-            }
-
-            this.dialog = false
-            this.companyName = this.origin.companyName
-            this.scopeWork = this.origin.scopeWork
-            this.jobTitle = this.origin.jobTitle
-            this.beginningWork = this.origin.beginningWork
-        },
         setData() {
             console.log(this.ownedSkill)
 
@@ -120,7 +103,7 @@ export default {
         }
     }),
     watch: {
-        pastWork() {
+        ownedSkill() {
             this.setData()
         }
     },

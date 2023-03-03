@@ -10,7 +10,10 @@
 import OwnedSkillsItem from './OwnedSkillsItem.vue';
 
 const props = defineProps({
-    jobSearchAreas: Number,
+    jobSearchAreas: {
+        type: Number,
+        required: true,
+    },
     ownedSkillArray: {
         type: Array,
         required: true

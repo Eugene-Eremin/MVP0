@@ -17,7 +17,7 @@
                     </div>
                 </button>
             </template>
-            <v-card>
+            <v-card v-if="this.jobSearchAreas">
                 <v-card-title>
                     <div class="mt-2">
                         <span class="text-h5">Добавить навык</span>
@@ -27,7 +27,7 @@
                     <v-card-text>
                         <v-form ref="form" @submit.prevent>
                             <v-autocomplete v-model="skill" :rules="countRules" :items="items" label="Навык"
-                                item-title="name" return-object variant="underlined" required ></v-autocomplete>
+                                item-title="name" return-object variant="underlined" required></v-autocomplete>
                             <v-text-field v-model="grade" :rules="countRulesGrade" label="Оценка" required
                                 variant="underlined"></v-text-field>
                             <v-btn type="submit" block color="blue-grey-darken-2" class="mt-4" @click="closeCard(false)">
@@ -37,6 +37,29 @@
                                 Добавить
                             </v-btn>
                         </v-form>
+                    </v-card-text>
+                </div>
+            </v-card>
+            <v-card v-else>
+                <v-card-title>
+                    <div class="mt-2">
+                        <span class="text-h5">Стоп!</span>
+                    </div>
+                </v-card-title>
+                <div class="p-2">
+                    <v-card-text>
+                        <div>
+                            <div>
+                                Выберите сферу работы, чтобы указать
+                                навык, которым владеете в этой сфере
+                            </div>
+                            <div>
+                                <v-btn type="submit" block color="blue-grey-darken-2" class="mt-4"
+                                    @click="closeCard(false)">
+                                    Назад
+                                </v-btn>
+                            </div>
+                        </div>
                     </v-card-text>
                 </div>
             </v-card>

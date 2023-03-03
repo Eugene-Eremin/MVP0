@@ -130,7 +130,8 @@
                         </div>
                         <div class="mt-5 mb-5">
                             <!-- Форма добавления навыков -->
-                            <AddOwnedSkill :jobSearchAreas="userInfoCreate.jobSearchAreas" @addOwnedSkill="addOwnedSkill" class=" mx-auto" />
+                            <AddOwnedSkill :jobSearchAreas="userInfoCreate.jobSearchAreas" @addOwnedSkill="addOwnedSkill"
+                                class=" mx-auto" />
                         </div>
                     </dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0">
@@ -221,7 +222,8 @@ const addGroups = (data) => {
 
 const addJobSearchAreas = (data) => {
     userInfoCreate.jobSearchAreas = data
-
+    ownedSkillArray.value = []
+    userInfoCreate.ownedSkills = []
 }
 
 const addSummaryLinkOrFile = (data) => {
@@ -290,7 +292,6 @@ const changeSpokenLanguage = (object) => {
 
 // -
 
-// Даделать в папке OwnedSkills 
 let ownedSkillArray = ref([])
 const addOwnedSkill = (data) => {
     let thisData = { ...data }

@@ -14,7 +14,7 @@
         </div>
         <div class="mb-2 flex flex-row rounded-md rounded-tl-none overflow-hidden border border-gray-700">
             <div class="m-auto flex-1 p-1">
-                {{ ownedSkill.skill }}
+                {{ ownedSkill.skill.name }}
             </div>
             <div class="m-auto flex-1 p-1">
                 {{ ownedSkill.grade }}
@@ -29,7 +29,10 @@ import EditOwnedSkills from './EditOwnedSkills.vue'
 import { ref } from 'vue';
 
 const props = defineProps({
-    jobSearchAreass: Number,
+    jobSearchAreas: {
+        type: Number,
+        required: true,
+    },
     ownedSkill: {
         type: Object,
         required: true
@@ -39,8 +42,6 @@ const props = defineProps({
         required: true
     }
 })
-
-console.log(props.jobSearchAreass)
 
 const emit = defineEmits(['remove', 'changeOwnedSkill'])
 const emitGo = () => {
