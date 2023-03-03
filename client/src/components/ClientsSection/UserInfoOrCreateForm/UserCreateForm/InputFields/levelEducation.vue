@@ -15,6 +15,11 @@ export default {
             ]
         }
     },
+    watch: {
+        select() {
+            this.$emit('addLevelEducation', this.select)
+        }
+    },
     mounted() {
         // Тут приходят данные с бека
         // this.items = ...

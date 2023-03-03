@@ -1,13 +1,13 @@
 <template>
     <v-autocomplete v-model="select" :rules="rules" :items="items" item-title="name" item-value="num" return-value
-        variant="underlined" multiple></v-autocomplete>
+        variant="underlined"></v-autocomplete>
 </template>
 
 <script>
 export default {
     data() {
         return {
-            select: [],
+            select: null,
             items: [],
 
             rules: [

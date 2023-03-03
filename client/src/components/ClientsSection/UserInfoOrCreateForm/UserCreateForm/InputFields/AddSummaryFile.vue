@@ -13,7 +13,7 @@ const emit = defineEmits(['file'])
 const changeFile = (event) => {
     if (event.target.files) {
         file.value = event.target.files[0]
-        emit('file', file)
+        emit('file', file.value)
     } else {
         emit('file', null)
     }

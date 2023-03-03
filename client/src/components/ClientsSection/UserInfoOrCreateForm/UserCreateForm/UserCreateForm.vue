@@ -89,7 +89,7 @@
                     <dt class="text-sm font-medium ">Уровень образования:</dt>
                     <dd class="text-sm  sm:col-span-2 sm:mt-0 break-words px-4">
                         <!-- Выпадающий список с выбором уровнем образования -->
-                        <LevelEducation />
+                        <LevelEducation @addLevelEducation="addLevelEducation" />
                     </dd>
                 </div>
                 <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -130,7 +130,7 @@
                         </div>
                         <div class="mt-5 mb-5">
                             <!-- Форма добавления навыков -->
-                            <AddOwnedSkill @addOwnedSkill="addOwnedSkill" class=" mx-auto" />
+                            <AddOwnedSkill :jobSearchAreas="userInfoCreate.jobSearchAreas" @addOwnedSkill="addOwnedSkill" class=" mx-auto" />
                         </div>
                     </dt>
                     <dd class="text-sm sm:col-span-2 sm:mt-0">
@@ -221,6 +221,7 @@ const addGroups = (data) => {
 
 const addJobSearchAreas = (data) => {
     userInfoCreate.jobSearchAreas = data
+
 }
 
 const addSummaryLinkOrFile = (data) => {
@@ -235,6 +236,10 @@ const addSummaryLinkOrFile = (data) => {
 
 const addWorkNow = (data) => {
     userInfoCreate.workNow = data
+}
+
+const addLevelEducation = (data) => {
+    userInfoCreate.eucationLevel = data
 }
 
 // -
@@ -320,7 +325,7 @@ const userInfoCreate = reactive({
     groupsArray: [],
     phoneNumber: '',
     // Number(number.substring(1, number.length).split(' ').join(''))
-    jobSearchAreas: [],
+    jobSearchAreas: null,
     summaryFile: {},
     summaryLink: '',
     workNow: null,

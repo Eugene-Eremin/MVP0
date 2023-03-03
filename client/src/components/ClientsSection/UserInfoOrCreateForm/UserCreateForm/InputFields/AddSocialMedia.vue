@@ -48,7 +48,7 @@
 export default {
     data: () => ({
         dialog: false,
-        items: ['Linkedin', 'VK', 'Facebook'],
+        items: null,
 
         link: null,
         socialMediaName: null,
@@ -76,6 +76,19 @@ export default {
             const { valid } = await this.$refs.form.validate()
             if (valid) this.closeCard(true)
         },
-    })
+    }),
+    mounted() {
+        // Тут приходят данные с бека
+        // this.items = ...
+        // ...
+
+        // Пока так
+        this.items = [
+            { name: 'LinkedIn', num: 0 },
+            { name: 'VK', num: 1 },
+            { name: 'Facebook', num: 2 },
+            { name: 'Telegram', num: 3 }
+        ]
+    },
 }
 </script>

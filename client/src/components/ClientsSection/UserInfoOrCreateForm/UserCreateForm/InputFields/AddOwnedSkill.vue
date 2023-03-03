@@ -27,7 +27,7 @@
                     <v-card-text>
                         <v-form ref="form" @submit.prevent>
                             <v-autocomplete v-model="skill" :rules="countRules" :items="items" label="Навык"
-                                variant="underlined" required></v-autocomplete>
+                                item-title="name" return-object variant="underlined" required></v-autocomplete>
                             <v-text-field v-model="grade" :rules="countRulesGrade" label="Оценка" required
                                 variant="underlined"></v-text-field>
                             <v-btn type="submit" block color="blue-grey-darken-2" class="mt-4" @click="closeCard(false)">
@@ -46,6 +46,7 @@
 
 <script>
 export default {
+    props: ['jobSearchAreas'],
     data: () => ({
         dialog: false,
         items: [],
@@ -83,21 +84,29 @@ export default {
             if (valid) this.closeCard(true)
         },
     }),
-    mounted() {
-        // Тут приходят данные с бека
-        // this.items = ...
-        // ...
+    watch: {
+        jobSearchAreas() {
+            // Тут в зависимости от выбранной сферы работ, показываются скилы
+            // относящиеся к ней
+            // ...
+            console.log(this.jobSearchAreas)
 
-        // Пока так
-        this.items = [
-            { name: 'JavaScript', num: 0 },
-            { name: 'Python', num: 1 },
-            { name: 'Java', num: 2 },
-            { name: 'C/С++', num: 3 },
-            { name: 'PHP', num: 4 },
-            { name: 'C#', num: 5 },
-            { name: 'SQL', num: 6 },
-        ]
-    },
+            // Тут приходят данные с бека
+            // this.items = ...
+            // ...
+
+
+            // Пока так
+            this.items = [
+                { name: 'JavaScript', num: 0 },
+                { name: 'Python', num: 1 },
+                { name: 'Java', num: 2 },
+                { name: 'C/С++', num: 3 },
+                { name: 'PHP', num: 4 },
+                { name: 'C#', num: 5 },
+                { name: 'SQL', num: 6 },
+            ]
+        }
+    }
 }
 </script>
