@@ -1,21 +1,28 @@
 <template>
-    <div v-for="ownedSkill, index in props.ownedSkillArray" :key="index" class="mb-2 flex flex-row rounded-md overflow-hidden border border-gray-700">
-        <div class="m-auto flex-1 p-1">
-            {{ ownedSkill.skill }}
-        </div>
-        <div class="m-auto flex-1 p-1">
-            {{ ownedSkill.grade }}
-        </div>
+    <div>
+        <OwnedSkillsItem v-for="ownedSkill, index in props.ownedSkillArray" :key="index" @remove="emitGo"
+            @changeOwnedSkill="emitGoSecond" :ownedSkill="ownedSkill" :index="index"
+            :jobSearchAreas="props.jobSearchAreas" />
     </div>
 </template>
 
 <script setup>
+import OwnedSkillsItem from './OwnedSkillsItem.vue';
 
 const props = defineProps({
+    jobSearchAreas: Number,
     ownedSkillArray: {
         type: Array,
         required: true
     }
 })
+
+const emit = defineEmits(['remove', 'changeOwnedSkill'])
+const emitGo = (index) => {
+    emit('remove', index)
+}
+const emitGoSecond = (object) => {
+    emit('changeOwnedSkill', object)
+}
 
 </script>

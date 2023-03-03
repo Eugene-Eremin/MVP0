@@ -149,7 +149,7 @@
                             <div class="text-center overflow-y-auto p-2 pb-0 h-32 w-full">
                                 <!-- Список добавленых навыков -->
                                 <OwnedSkills @remove="removeOwnedSkill" @changeOwnedSkill="changeOwnedSkill"
-                                    :ownedSkillArray="ownedSkillArray" />
+                                    :ownedSkillArray="ownedSkillArray" :jobSearchAreas="userInfoCreate.jobSearchAreas" />
                             </div>
                         </div>
                     </dd>

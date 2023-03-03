@@ -27,7 +27,7 @@
                     <v-card-text>
                         <v-form ref="form" @submit.prevent>
                             <v-autocomplete v-model="skill" :rules="countRules" :items="items" label="Навык"
-                                item-title="name" return-object variant="underlined" required></v-autocomplete>
+                                item-title="name" return-object variant="underlined" required ></v-autocomplete>
                             <v-text-field v-model="grade" :rules="countRulesGrade" label="Оценка" required
                                 variant="underlined"></v-text-field>
                             <v-btn type="submit" block color="blue-grey-darken-2" class="mt-4" @click="closeCard(false)">
