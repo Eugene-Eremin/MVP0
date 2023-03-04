@@ -8,7 +8,7 @@
                 <div class=" h-3 1.8xl:hidden"></div>
                 <!-- Кнопка добавить пользователя -->
                 <AddOrViewUser @changeSelectedOrCreate="selectedOrCreate = !selectedOrCreate"
-                    v-if="userStore.admin == 'admin'" :selectedOrCreate="selectedOrCreate" />
+                    v-if="userStore.role == 'admin'" :selectedOrCreate="selectedOrCreate" />
             </div>
             <div class="rounded-md overflow-hidden">
                 <!-- Таблица -->
@@ -23,7 +23,7 @@
                 <UserInfo />
             </div>
             <!-- Создать пользователя -->
-            <div v-if="userStore.admin == 'admin'" v-show="!selectedOrCreate">
+            <div v-if="userStore.role == 'admin'" v-show="!selectedOrCreate">
                 <UserCreateForm />
             </div>
         </div>

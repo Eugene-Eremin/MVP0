@@ -1,9 +1,12 @@
 <template>
   <div>
-    <header class="mb-16">
-      <NavbarForAdmin v-if="userStore.admin == 'admin'" />
-      <NavbarForApplicant v-else-if="userStore.admin == 'applicant'" />
+    <header v-if="userStore.authorized" class="mb-16">
+      <NavbarForAdmin v-if="userStore.role == 'admin'" />
+      <NavbarForApplicant v-else-if="userStore.role == 'applicant'" />
       <NavbarForEmployer v-else />
+    </header>
+    <header v-else class="mb-16">
+      <NavbarForUnauthorized />
     </header>
     <main>
       <RouterView />
@@ -18,6 +21,7 @@
 import NavbarForAdmin from './components/Navbar/NavbarForAdmin.vue';
 import NavbarForApplicant from './components/Navbar/NavbarForApplicant.vue';
 import NavbarForEmployer from './components/Navbar/NavbarForEmployer.vue';
+import NavbarForUnauthorized from './components/Navbar/NavbarForUnauthorized.vue';
 
 import { onBeforeMount } from 'vue';
 import { RouterView } from 'vue-router'
@@ -29,7 +33,7 @@ const userStore = useUserStore()
 onBeforeMount(() => {
   // ...
   const rolesTest = ['admin', 'applicant', 'employer']
-  userStore.admin = rolesTest[0]
+  userStore.role = rolesTest[0]
   // ...
 })
 

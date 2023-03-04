@@ -9,7 +9,8 @@
                 <span>{{ pathNow }}</span>
             </li>
         </ul>
-        <button id="btnSidebarToggler" type="button" class="transition ease-in-out duration-350 py-4 text-2xl text-white hover:text-gray-200">
+        <button id="btnSidebarToggler" type="button"
+            class="transition ease-in-out duration-350 py-4 text-2xl text-white hover:text-gray-200">
             <svg id="navClosed" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="h-8 w-8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -33,36 +34,23 @@
                     <ul class="mb-8 text-sm font-medium">
                         <li>
                             <RouterLink id="homeLink"
-                                class="transition ease-in-out duration-350 flex items-center rounded py-3 pl-3 pr-4 text-gray-50 hover:bg-gray-600" to="/">
+                                class="transition ease-in-out duration-350 flex items-center rounded py-3 pl-3 pr-4 text-gray-50 hover:bg-gray-600"
+                                to="/">
                                 <span class="select-none">Главня</span>
                             </RouterLink>
                         </li>
                         <li>
-                            <RouterLink id="clientsLink"
+                            <RouterLink id="loginLink"
                                 class="transition ease-in-out duration-350 flex items-center rounded py-3 pl-3 pr-4 text-gray-50 hover:bg-gray-600"
-                                to="/clients">
-                                <span class="select-none">Клиенты</span>
+                                to="/login">
+                                <span class="select-none">Войти</span>
                             </RouterLink>
                         </li>
                         <li>
-                            <RouterLink id="vacanciesLink"
+                            <RouterLink id="registrationLink"
                                 class="transition ease-in-out duration-350 flex items-center rounded py-3 pl-3 pr-4 text-gray-50 hover:bg-gray-600"
-                                to="/vacancies">
-                                <span class="select-none">Вакансии</span>
-                            </RouterLink>
-                        </li>
-                        <li>
-                            <RouterLink id="selectionsLink"
-                                class="transition ease-in-out duration-350 flex items-center rounded py-3 pl-3 pr-4 text-gray-50 hover:bg-gray-600"
-                                to="/selections">
-                                <span class="select-none">Подборки</span>
-                            </RouterLink>
-                        </li>
-                        <li>
-                            <RouterLink id="tableEditingLink"
-                                class="transition ease-in-out duration-350 flex items-center rounded py-3 pl-3 pr-4 text-gray-50 hover:bg-gray-600"
-                                to="/table-editing">
-                                <span class="select-none">Редактирование таблиц</span>
+                                to="/registration">
+                                <span class="select-none">Регестрация</span>
                             </RouterLink>
                         </li>
                     </ul>
@@ -85,18 +73,12 @@ watch(() => navbarStore.pathNow, (state) => {
     if (state == '/') {
         homeLink.classList.toggle("active");
         pathNow.value = 'Главная'
-    } else if (state == '/clients') {
-        clientsLink.classList.toggle("active");
-        pathNow.value = 'Клиенты'
-    } else if (state == '/vacancies') {
-        vacanciesLink.classList.toggle("active");
-        pathNow.value = 'Вакансии'
-    } else if (state == '/selections') {
-        selectionsLink.classList.toggle("active");
-        pathNow.value = 'Подборки'
-    } else if (state == '/table-editing') {
-        tableEditingLink.classList.toggle("active");
-        pathNow.value = 'Редактирование таблиц'
+    } else if (state == '/login') {
+        loginLink.classList.toggle("active");
+        pathNow.value = 'Войти'
+    } else if (state == '/registration') {
+        registrationLink.classList.toggle("active");
+        pathNow.value = 'Регестрация'
     }
 })
 
@@ -107,10 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const sidebar = document.getElementById("sidebar");
     const btnSidebarToggler = document.getElementById("btnSidebarToggler");
     const homeLink = document.getElementById("homeLink");
-    const clientsLink = document.getElementById("clientsLink");
-    const vacanciesLink = document.getElementById("vacanciesLink");
-    const selectionsLink = document.getElementById("selectionsLink");
-    const tableEditingLink = document.getElementById("tableEditingLink");
+    const loginLink = document.getElementById("loginLink");
+    const registrationLink = document.getElementById("registrationLink");
     const navClosed = document.getElementById("navClosed");
     const navOpen = document.getElementById("navOpen");
 
@@ -128,28 +108,14 @@ document.addEventListener("DOMContentLoaded", () => {
         navOpen.classList.toggle("hidden");
     });
 
-    clientsLink.addEventListener("click", (e) => {
+    loginLink.addEventListener("click", (e) => {
         e.preventDefault();
         sidebar.classList.toggle("show");
         navClosed.classList.toggle("hidden");
         navOpen.classList.toggle("hidden");
     });
 
-    vacanciesLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        sidebar.classList.toggle("show");
-        navClosed.classList.toggle("hidden");
-        navOpen.classList.toggle("hidden");
-    });
-
-    selectionsLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        sidebar.classList.toggle("show");
-        navClosed.classList.toggle("hidden");
-        navOpen.classList.toggle("hidden");
-    });
-
-    tableEditingLink.addEventListener("click", (e) => {
+    registrationLink.addEventListener("click", (e) => {
         e.preventDefault();
         sidebar.classList.toggle("show");
         navClosed.classList.toggle("hidden");
