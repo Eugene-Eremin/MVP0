@@ -1,5 +1,5 @@
 <template>
-    <v-file-input :rules="rules" @change="changeFile" @click:clear="changeFile"
+    <v-file-input class="truncate" :rules="rules" @change="changeFile" @click:clear="changeFile"
         variant="underlined"></v-file-input>
 </template>
 

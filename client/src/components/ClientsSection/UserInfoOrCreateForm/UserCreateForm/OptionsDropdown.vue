@@ -19,7 +19,7 @@
                 class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div class="px-1 py-1">
                     <MenuItem v-slot="{ active }">
-                    <button @click="createUser, validate" :class="[
+                    <button @click="createUser" :class="[
                         active ? 'transition ease-in-out duration-350 bg-green-700 text-gray-900' : 'text-gray-400',
                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                     ]">
@@ -53,14 +53,14 @@
 <script setup>
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
+const emit = defineEmits(['createUser', 'removeChanges'])
+
 const createUser = () => {
-    console.log('Создать пользователя')
-    // ...
+    emit('createUser')
 }
 
 const removeSelectedChanges = () => {
-    console.log('Очистить изменения')
-    // ...
+    emit('removeChanges')
 }
 
 </script>

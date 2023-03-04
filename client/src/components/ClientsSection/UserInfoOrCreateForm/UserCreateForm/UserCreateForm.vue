@@ -1,10 +1,18 @@
 <template>
+    <div class="text-center">
+        <v-dialog v-model="dialog" width="auto">
+            <v-card>
+                <v-alert title="Ошибка!" type="error">{{ message }}</v-alert>
+            </v-card>
+        </v-dialog>
+    </div>
     <div class="overflow-hidden rounded-md">
         <div class="px-4 py-1 flex bg-gray-700">
             <h3 class="my-auto text-lg font-medium leading-6 text-gray-400">Создать пользователя</h3>
             <!-- Выпадающий список с опциями -->
             <div class="ml-auto h-[49.2px] flex my-auto items-center text-gray-400">
-                <OptionsDropdown v-if="userStore.admin == 'admin'" />
+                <OptionsDropdown v-if="userStore.admin == 'admin'" @createUser="createUser"
+                    @removeChanges="removeChanges" />
             </div>
         </div>
 
@@ -229,7 +237,7 @@ const addJobSearchAreas = (data) => {
 
 const addSummaryLinkOrFile = (data) => {
     if (typeof data == 'object') {
-        userInfoCreate.summaryLink = null
+        userInfoCreate.summaryLink = ''
         userInfoCreate.summaryFile = data
     } else {
         userInfoCreate.summaryFile = null
@@ -350,7 +358,7 @@ const userInfoCreate = reactive({
     phoneNumber: '',
     // Number(number.substring(1, number.length).split(' ').join(''))
     jobSearchAreas: null,
-    summaryFile: {},
+    summaryFile: null,
     summaryLink: '',
     workNow: null,
     lastJobs: [],
@@ -360,6 +368,74 @@ const userInfoCreate = reactive({
     socialMedia: [],
 })
 
+// -
+
+const createUser = () => {
+    console.log('Создать пользователя')
+    const data = {
+        name: userInfoCreate.name,
+        groupsArray: userInfoCreate.groupsArray,
+        phoneNumber: Number(userInfoCreate.phoneNumber.substring(1, userInfoCreate.phoneNumber.length).split(' ').join('')),
+        jobSearchAreas: userInfoCreate.jobSearchAreas,
+        summaryFile: userInfoCreate.summaryFile,
+        summaryLink: userInfoCreate.summaryLink,
+        workNow: userInfoCreate.workNow,
+        lastJobs: userInfoCreate.lastJobs,
+        eucationLevel: userInfoCreate.eucationLevel,
+        spokenLanguages: userInfoCreate.spokenLanguages,
+        ownedSkills: userInfoCreate.ownedSkills,
+        socialMedia: userInfoCreate.socialMedia,
+    }
+    const messageError = validation(data)
+    if (messageError !== true) {
+        message.value = messageError
+        dialog.value = true
+    } else {
+        console.log('Валидно')
+    }
+}
+
+const validation = (data) => {
+    console.log(data)
+    if (data.name.length == 0) return 'Укажите имя пользователя'
+    if (data.groupsArray.length == 0) return 'Укажите группу(-ы) пользователя'
+    if (String(data.phoneNumber).length !== 11) return 'Укажите номер корректно'
+    if (data.jobSearchAreas == null) return 'Укажите сферу боиска работы'
+    if (data.summaryFile == null && data.summaryLink.length == 0) return 'Укажите ссылку или загрузите файл резюме'
+    if (data.summaryLink.length !== 0 && data.summaryLink.substring(0, 8) !== 'https://') return 'Введите валидную ссылку на резюме'
+    if (data.workNow == null) return 'Укажите поле "Работает сейчас"'
+    if (data.lastJobs.length == 0) return 'Укажите минимум одну прошлую работу'
+    if (data.eucationLevel == null) return 'Укажите уровень образования'
+    if (data.spokenLanguages.length == 0) return 'Укажите минимум один владеемый язык'
+    if (data.ownedSkills.length == 0) return 'Укажите минимум один навык'
+    if (data.socialMedia.length == 0) return 'Укажите минимум одну социальную сеть'
+    return true
+}
+
+const removeChanges = () => {
+    pastWorkArray.value = []
+    spokenLanguageArray.value = []
+    ownedSkillArray.value = []
+    socialMediaArray.value = []
+
+    userInfoCreate.name = ''
+    userInfoCreate.groupsArray = []
+    userInfoCreate.phoneNumber = ''
+    userInfoCreate.jobSearchAreas = null
+    userInfoCreate.summaryFile = null
+    userInfoCreate.summaryLink = ''
+    userInfoCreate.workNow = null
+    userInfoCreate.lastJobs = []
+    userInfoCreate.eucationLevel = null
+    userInfoCreate.spokenLanguages = []
+    userInfoCreate.ownedSkills = []
+    userInfoCreate.socialMedia = []
+}
+
+// -
+
+const dialog = ref(false)
+const message = ref('')
 // ...
 
 const generalRules = [
