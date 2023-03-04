@@ -2,8 +2,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Registration from '../views/Registration.vue'
+
+import Login from '../views/Identification/Login.vue'
+import Registration from '../views/Identification/Registration.vue'
+
+import ConfirmationOfThePhoneNumber from '../views/Identification/ConfirmationOfThePhoneNumber.vue'
+import EmailConfirmation from '../views/Identification/EmailConfirmation.vue'
+
 import Clients from '../views/Clients.vue'
 import Vacancies from '../views/Vacancies.vue'
 import Selections from '../views/Selections.vue'
@@ -18,6 +23,7 @@ const router = createRouter({
       component: Home,
       meta: { auth: false }
     },
+    // -
     {
       path: '/login',
       name: 'Login',
@@ -30,6 +36,20 @@ const router = createRouter({
       component: Registration,
       meta: { auth: false }
     },
+    // -
+    {
+      path: '/confirmation-of-the-phone-number',
+      name: 'ConfirmationOfThePhoneNumber',
+      component: ConfirmationOfThePhoneNumber,
+      meta: { auth: false }
+    },
+    {
+      path: '/email-confirmation',
+      name: 'EmailConfirmation',
+      component: EmailConfirmation,
+      meta: { auth: false }
+    },
+    // -
     {
       path: '/clients',
       name: 'Clients',

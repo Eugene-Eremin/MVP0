@@ -25,7 +25,7 @@
                         :type="show1 ? 'text' : 'password'" name="input-10-1" label="Пароль"
                         @click:append-inner="show1 = !show1" clearable></v-text-field>
                     <br>
-                    <v-btn :loading="loading" @click="validate" block color="success" size="large" type="submit"
+                    <v-btn :loading="loading" @click="validate" block color="success" size="large"
                         variant="elevated">
                         Войти
                     </v-btn>
@@ -43,10 +43,11 @@
 </template>
 
 <script>
+import router from '@/router';
+
 import { useRoute } from 'vue-router'
 
-
-import { useNavbarStore } from '../store/navbarStore';
+import { useNavbarStore } from '../../store/navbarStore';
 
 export default {
     data() {
@@ -91,12 +92,26 @@ export default {
 
             console.log('Войти')
             console.log(data)
+            // ...
+            // Отсылаю данные и если они верны, приходит ответ
+            // с информацией о том подтвердил ли пользователь
+            // свой email или номер телефона или нет.
+            // Если все нормально, токены записываются и 
+            // переходит на страницу с вакансиями иначе
+            // на страницу с подтверждением
+            // ...
+
+            if (false) {
+                router.push('/email-confirmation')
+            } else {
+                router.push('/vacancies')
+            }
         }
     },
     setup() {
         const navbarStore = useNavbarStore()
         navbarStore.pathNow = useRoute().path
-
+        
         document.title = 'Войти'
     }
 }

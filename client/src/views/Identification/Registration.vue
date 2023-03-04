@@ -27,8 +27,7 @@
                     <v-text-field v-model="repeatPpassword" :rules="[rules.required, rules.coincidence]"
                         :type="show1 ? 'text' : 'password'" label="Повторить пароль" clearable></v-text-field>
                     <br>
-                    <v-btn :loading="loading" block color="success" type="submit" size="large" @click="validate"
-                        variant="elevated">
+                    <v-btn :loading="loading" block color="success" size="large" @click="validate" variant="elevated">
                         Регестрироваться
                     </v-btn>
                     <div class="text-center mt-2">
@@ -45,10 +44,11 @@
 </template>
                     
 <script>
+import router from '@/router';
+
 import { useRoute } from 'vue-router'
 
-
-import { useNavbarStore } from '../store/navbarStore';
+import { useNavbarStore } from '../../store/navbarStore';
 
 export default {
     data() {
@@ -95,6 +95,19 @@ export default {
 
             console.log('Регестрация')
             console.log(data)
+            // ...
+            // Отсылаются данные, приходит код активации
+            // или письмо на почту и далее, в зависимости
+            // от того, через что пользователь регестрировался,
+            // его перекинет на соответствующую страницу
+            // подтверждения своего профиляя
+            // ...
+
+            if (!this.show2) {
+                router.push('/email-confirmation')
+            } else {
+                router.push('/confirmation-of-the-phone-number')
+            }
         },
     },
     setup() {

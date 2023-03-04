@@ -86,7 +86,11 @@ watch(() => navbarStore.pathNow, (state) => {
     } else if (state == '/registration') {
         registrationLink.classList.toggle("active");
         pathNow.value = 'Регестрация'
-    }
+    } else if (state == '/email-confirmation') {
+        pathNow.value = 'Подтверждение электронной почты'
+    } else if (state == '/confirmation-of-the-phone-number') {
+        pathNow.value = 'Подтверждение номера телефона'
+    } 
 })
 
 // ---
