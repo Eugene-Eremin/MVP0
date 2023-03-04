@@ -31,7 +31,7 @@
                     <h3 class="mb-2 text-xs font-medium uppercase text-gray-500">
                         Разделы
                     </h3>
-                    <ul class="mb-8 text-sm font-medium">
+                    <ul class="text-sm font-medium">
                         <li>
                             <RouterLink id="homeLink"
                                 class="transition ease-in-out duration-350 flex items-center rounded py-3 pl-3 pr-4 text-gray-50 hover:bg-gray-600"
@@ -39,6 +39,13 @@
                                 <span class="select-none">Главня</span>
                             </RouterLink>
                         </li>
+                    </ul>
+                </div>
+                <div class="px-4 pb-6 mt-auto">
+                    <h3 class="mb-2 mt-auto text-xs font-medium uppercase text-gray-500">
+                        Профиль
+                    </h3>
+                    <ul class="text-sm font-medium">
                         <li>
                             <RouterLink id="loginLink"
                                 class="transition ease-in-out duration-350 flex items-center rounded py-3 pl-3 pr-4 text-gray-50 hover:bg-gray-600"

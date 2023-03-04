@@ -13,6 +13,9 @@ const navbarStore = useNavbarStore()
 navbarStore.pathNow = useRoute().path
 
 document.title = 'Профиль'
+
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -3,9 +3,9 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('userStore', () => {
 
-    const role = ''
+    const role = null
 
-    const authorized = false
+    const authorized = null
 
     return { role, authorized }
 })

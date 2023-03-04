@@ -33,6 +33,7 @@ const userStore = useUserStore()
 onBeforeMount(() => {
   // ...
   const rolesTest = ['admin', 'applicant', 'employer']
+  userStore.authorized = false
   userStore.role = rolesTest[0]
   // ...
 })
