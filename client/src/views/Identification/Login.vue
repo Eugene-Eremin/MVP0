@@ -8,7 +8,7 @@
                         <img class="w-24 h-24 mx-auto max-w-sm hidden lg:block" src="/icon.png" alt="home" />
                     </div>
                     <br>
-                    <div class="text-center text-2xl font-bold">
+                    <div class="text-center text-2xl font-bold text-gray-600">
                         HR-Platform
                     </div>
                     <br>
@@ -25,8 +25,7 @@
                         :type="show1 ? 'text' : 'password'" name="input-10-1" label="Пароль"
                         @click:append-inner="show1 = !show1" clearable></v-text-field>
                     <br>
-                    <v-btn :loading="loading" @click="validate" block color="success" size="large"
-                        variant="elevated">
+                    <v-btn :loading="loading" @click="validate" block color="success" size="large" variant="elevated">
                         Войти
                     </v-btn>
                     <div class="text-center mt-2">
@@ -92,8 +91,9 @@ export default {
 
             console.log('Войти')
             console.log(data)
+
             // ...
-            // Отсылаю данные и если они верны, приходит ответ
+            // Отсылаю данные и если они верны, приходит ответ (response)
             // с информацией о том подтвердил ли пользователь
             // свой email или номер телефона или нет.
             // Если все нормально, токены записываются и 
@@ -101,8 +101,20 @@ export default {
             // на страницу с подтверждением
             // ...
 
-            if (false) {
+            // Тут в response я буду выцеплять поля: 
+            // isEmailActivated
+            // isPhoneNumberActivated
+            // и если одно из двух активировано, то пропускать, если нет, то отсылать
+            // на страницу подтверждения
+
+            // Инфа записывается в сторедж
+
+            const response = false // Пока так
+
+            if (response && !this.show2) {
                 router.push('/email-confirmation')
+            } else if (response && this.show2) {
+                router.push('/confirmation-of-the-phone-number')
             } else {
                 router.push('/vacancies')
             }
@@ -111,8 +123,10 @@ export default {
     setup() {
         const navbarStore = useNavbarStore()
         navbarStore.pathNow = useRoute().path
-        
+
         document.title = 'Войти'
+
+        return { navbarStore }
     }
 }
 </script>

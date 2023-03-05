@@ -8,7 +8,7 @@
                         <img class="w-24 h-24 mx-auto max-w-sm hidden lg:block" src="/icon.png" alt="home" />
                     </div>
                     <br>
-                    <div class="text-center text-2xl font-bold">
+                    <div class="text-center text-2xl font-bold text-gray-600">
                         HR-Platform
                     </div>
                     <br>
@@ -103,10 +103,15 @@ export default {
             // подтверждения своего профиляя
             // ...
 
+            // Инфа записывается в сторедж
+
+
             if (!this.show2) {
                 router.push('/email-confirmation')
-            } else {
+            } else if (this.show2) {
                 router.push('/confirmation-of-the-phone-number')
+            } else {
+                // Выдать какую нибудь ошибку которая придет с бека
             }
         },
     },
@@ -115,6 +120,8 @@ export default {
         navbarStore.pathNow = useRoute().path
 
         document.title = 'Регестрация'
+
+        { navbarStore }
     }
 }
 </script>
