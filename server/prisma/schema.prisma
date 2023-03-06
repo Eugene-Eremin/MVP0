@@ -19,11 +19,10 @@ datasource db {
 model users {
   id                      Int                       @id @default(autoincrement())
   email                   String?                   @unique
-  phoneNumber             Int?                      @unique
-  isEmailActivated        Boolean?                  @default(false)
-  isPhoneNumberActivated  Boolean?                  @default(false)
-  activationLink          String?
-  activationCode          Int?
+  phoneNumber             BigInt?                   @unique
+  hashedPassword          String
+  emailActivation         emailActivation?
+  phoneNumberActivation   phoneNumberActivation?
   tokens                  tokens?
   infoUsers               infoUsers?
   pastWorks               pastWorks[]
@@ -33,13 +32,34 @@ model users {
   groups                  groups[]
 }
 
+// Таблицы с активацией почты и номера телефона
+
+model emailActivation {
+  id               Int     @id @default(autoincrement())
+  users            users   @relation(fields: [userId], references: [id])
+  userId           Int     @unique
+  isEmailActivated Boolean @default(false)
+  activationLink   String  @unique
+}
+
+model phoneNumberActivation {
+  id                     Int     @id @default(autoincrement())
+  users                  users   @relation(fields: [userId], references: [id])
+  userId                 Int     @unique
+  isPhoneNumberActivated Boolean @default(false)
+  activationCode         Int     @unique
+}
+
 // Тут хранится jwt refresh tokens
+
 model tokens {
   id           Int    @id @default(autoincrement())
   users        users  @relation(fields: [userId], references: [id])
   userId       Int    @unique
-  refreshToken String
+  refreshToken String @unique
 }
+
+// Информация о пользователе
 
 model infoUsers {
   id                 Int              @id @default(autoincrement())
@@ -50,7 +70,7 @@ model infoUsers {
   phoneNumber        Int?             @unique
   areasOfWork        areasOfWork      @relation(fields: [searchAreaOfWorkId], references: [id])
   searchAreaOfWorkId Int
-  fileSummaryKey     String?
+  fileSummaryKey     String?          @unique
   fileSummaryName    String?
   summaryLink        String?
   workingNow         Boolean
@@ -93,7 +113,7 @@ model socialNetworksWithLinks {
   userId          Int?
   socialNetworks  socialNetworks @relation(fields: [socialNetworkId], references: [id])
   socialNetworkId Int
-  link            String         @unique
+  link            String
 }
 
 model groups {
