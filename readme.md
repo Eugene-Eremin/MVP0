@@ -1,5 +1,5 @@
-client - Vue.js | Pinia, TailwindCSS, Vuetify
+Client - Vue.js, Pinia, TailwindCSS, Vuetify
 
-server - Express.js | Prisma
+Server - Express.js, JWT, Prisma,
 
-db - PostgreSQL
+DB - PostgreSQL

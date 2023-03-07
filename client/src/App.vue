@@ -31,11 +31,11 @@ import { useUserStore } from './store/userStore'
 const userStore = useUserStore()
 
 onBeforeMount(() => {
-  // ...
-  const rolesTest = ['admin', 'applicant', 'employer']
-  userStore.authorized = false
-  userStore.role = rolesTest[0]
-  // ...
+  if (localStorage.getItem('token')) userStore.checkAuth()
+
+  // const rolesTest = ['admin', 'applicant', 'employer']
+  // userStore.authorized = false
+  // userStore.role = rolesTest[0]
 })
 
 </script>

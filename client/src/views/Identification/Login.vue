@@ -47,6 +47,7 @@ import router from '@/router';
 import { useRoute } from 'vue-router'
 
 import { useNavbarStore } from '../../store/navbarStore';
+import { useUserStore } from '@/store/userStore';
 
 export default {
     data() {
@@ -55,7 +56,7 @@ export default {
             email: null,
             phoneNumber: null,
             password: null,
-            loading: false,
+            loading: useUserStore().isLoading,
             show1: false,
             show2: false,
             rules: {
@@ -70,12 +71,16 @@ export default {
         }
     },
     methods: {
+        async login(data) {
+            const userStore = useUserStore()
+            await userStore.login(data.login, data.password)
+        },
         async validate() {
             const { valid } = await this.$refs.form.validate()
 
             if (!valid) return
 
-            this.loading = true
+            const userStore = useUserStore()
 
             let login = null
             if (!this.show2) {
@@ -109,11 +114,12 @@ export default {
 
             // Инфа записывается в сторедж
 
-            const response = false // Пока так
+            this.login(data)
 
-            if (response && !this.show2) {
+            // Доделать
+            if (!userStore.isEmailActivated && !loading) {
                 router.push('/email-confirmation')
-            } else if (response && this.show2) {
+            } else if (!userStore.isPhoneNumberActivated && !loading) {
                 router.push('/confirmation-of-the-phone-number')
             } else {
                 router.push('/vacancies')

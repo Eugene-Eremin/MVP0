@@ -8,23 +8,16 @@ const ApiError = require('../error/api-error')
 
 class UserService {
     async registration(email, password) {
-        // const candidate = await UserModel.findOne({ email })
-        const candidate = await prisma.users.findUnique({
-            where: {
-                email
-            }
-        })
-        if (candidate) {
-            throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} уже существует`)
-        }
-        const hashPassword = await bcrypt.hash(password, 3);
+        const candidate = await prisma.users.findUnique({ where: { email } })
+        if (candidate) throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} уже существует`)
+
+        const hashedPassword = await bcrypt.hash(password, 3);
         const activationLink = uuid.v4();
 
-        // const user = await UserModel.create({ email, password: hashPassword, activationLink })
         const user = await prisma.users.create({
             data: {
                 email,
-                hashedPassword: hashPassword,
+                hashedPassword,
                 emailActivation: {
                     create: {
                         activationLink
@@ -59,7 +52,6 @@ class UserService {
     }
 
     async activate(activationLink) {
-        // const user = await UserModel.findOne({ activationLink })
         const user = await prisma.emailActivation.update({
             where: {
                 activationLink
@@ -74,19 +66,16 @@ class UserService {
     }
 
     async login(email, password) {
-        // const user = await UserModel.findOne({ email })
-        const user = await prisma.users.findUnique({
-            where: {
-                email
-            }
-        })
+        const user = await prisma.users.findUnique({ where: { email } })
         if (!user) {
             throw ApiError.BadRequest('Пользователь с таким email не найден')
         }
+
         const isPassEquals = await bcrypt.compare(password, user.hashedPassword)
         if (!isPassEquals) {
             throw ApiError.BadRequest('Неверный пароль')
         }
+
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({ ...userDto })
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
@@ -108,13 +97,29 @@ class UserService {
         if (!userData || !tokenFromDb) {
             throw ApiError.UnauthorizedError()
         }
-        
-        // const user = await UserModel.findById(userData.id)
-        const user = await prisma.findUnique({
+
+        const user = await prisma.users.findUnique({
             where: {
                 id: userData.id
+            },
+            select: {
+                id: true,
+                email: true,
+                phoneNumber: true,
+                phoneNumber: true,
+                emailActivation: {
+                    select: {
+                        isEmailActivated: true
+                    }
+                },
+                phoneNumberActivation: {
+                    select: {
+                        isPhoneNumberActivated: true
+                    }
+                }
             }
         })
+
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({ ...userDto })
         await tokenService.saveToken(userDto.id, tokens.refreshToken)

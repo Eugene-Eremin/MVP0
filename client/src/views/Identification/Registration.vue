@@ -48,7 +48,10 @@ import router from '@/router';
 
 import { useRoute } from 'vue-router'
 
+import UserService from '../../services/AuthService';
+
 import { useNavbarStore } from '../../store/navbarStore';
+import { useUserStore } from '@/store/userStore';
 
 export default {
     data() {
@@ -58,7 +61,7 @@ export default {
             phoneNumber: null,
             password: null,
             repeatPpassword: null,
-            loading: false,
+            loading: useUserStore().isLoading,
             show1: true,
             show2: false,
             rules: {
@@ -74,12 +77,14 @@ export default {
         }
     },
     methods: {
+        async registration(data) {
+            const userStore = useUserStore()
+            await userStore.registration(data.login, data.password)
+        },
         async validate() {
             const { valid } = await this.$refs.form.validate()
 
             if (!valid) return
-
-            this.loading = true
 
             let login = null
             if (!this.show2) {
@@ -105,14 +110,9 @@ export default {
 
             // Инфа записывается в сторедж
 
+            this.registration(data)
 
-            if (!this.show2) {
-                router.push('/email-confirmation')
-            } else if (this.show2) {
-                router.push('/confirmation-of-the-phone-number')
-            } else {
-                // Выдать какую нибудь ошибку которая придет с бека
-            }
+            !this.show2 && !this.loading ? router.push('/email-confirmation') : router.push('/confirmation-of-the-phone-number')
         },
     },
     setup() {
@@ -125,4 +125,3 @@ export default {
     }
 }
 </script>
-                    
