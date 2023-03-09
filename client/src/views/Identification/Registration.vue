@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="!selectedGroup">
         <v-sheet class="pa-12" rounded>
             <v-card class="mx-auto px-6 py-8 pb-6" max-width="400">
                 <v-form ref="form">
@@ -41,11 +41,15 @@
             </v-card>
         </v-sheet>
     </div>
+    <div v-else>
+        Выберите группу
+    </div>
 </template>
                     
 <script>
 import router from '@/router';
 
+import { ref } from 'vue';
 import { useRoute } from 'vue-router'
 
 import UserService from '../../services/AuthService';
@@ -86,6 +90,10 @@ export default {
 
             if (!valid) return
 
+            const userStore = useUserStore()
+
+            const selectedGroup = ref(false)
+
             let login = null
             if (!this.show2) {
                 login = this.email
@@ -111,6 +119,10 @@ export default {
             // Инфа записывается в сторедж
 
             this.registration(data)
+
+            if (!userStore.role.administrator && !userStore.role.applicant && !userStore.role.employer) {
+                selectedGroup.value = !selectedGroup.value
+            }
 
             !this.show2 && !this.loading ? router.push('/email-confirmation') : router.push('/confirmation-of-the-phone-number')
         },

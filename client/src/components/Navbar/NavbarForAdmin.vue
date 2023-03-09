@@ -9,7 +9,8 @@
                 <span>{{ pathNow }}</span>
             </li>
         </ul>
-        <button id="btnSidebarToggler" type="button" class="transition ease-in-out duration-350 py-4 text-2xl text-white hover:text-gray-200">
+        <button id="btnSidebarToggler" type="button"
+            class="transition ease-in-out duration-350 py-4 text-2xl text-white hover:text-gray-200">
             <svg id="navClosed" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="h-8 w-8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -33,7 +34,8 @@
                     <ul class="mb-8 text-sm font-medium">
                         <li>
                             <RouterLink id="homeLink"
-                                class="transition ease-in-out duration-350 flex items-center rounded py-3 pl-3 pr-4 text-gray-50 hover:bg-gray-600" to="/">
+                                class="transition ease-in-out duration-350 flex items-center rounded py-3 pl-3 pr-4 text-gray-50 hover:bg-gray-600"
+                                to="/">
                                 <span class="select-none">Главня</span>
                             </RouterLink>
                         </li>
@@ -73,7 +75,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 
 import { useNavbarStore } from '../../store/navbarStore';
 
@@ -81,28 +83,7 @@ const navbarStore = useNavbarStore()
 
 const pathNow = ref('')
 
-watch(() => navbarStore.pathNow, (state) => {
-    if (state == '/') {
-        homeLink.classList.toggle("active");
-        pathNow.value = 'Главная'
-    } else if (state == '/clients') {
-        clientsLink.classList.toggle("active");
-        pathNow.value = 'Клиенты'
-    } else if (state == '/vacancies') {
-        vacanciesLink.classList.toggle("active");
-        pathNow.value = 'Вакансии'
-    } else if (state == '/selections') {
-        selectionsLink.classList.toggle("active");
-        pathNow.value = 'Подборки'
-    } else if (state == '/table-editing') {
-        tableEditingLink.classList.toggle("active");
-        pathNow.value = 'Редактирование таблиц'
-    }
-})
-
-// ---
-
-document.addEventListener("DOMContentLoaded", () => {
+onMounted(() => {
     const navbar = document.getElementById("navbar");
     const sidebar = document.getElementById("sidebar");
     const btnSidebarToggler = document.getElementById("btnSidebarToggler");
@@ -156,9 +137,40 @@ document.addEventListener("DOMContentLoaded", () => {
         navOpen.classList.toggle("hidden");
     });
 
-
     sidebar.style.top = parseInt(navbar.clientHeight) - 1 + "px";
-});
+
+    // ---
+
+    if (navbarStore.pathNow == '/') {
+        pathNow.value = 'Главная'
+    } else if (navbarStore.pathNow == '/clients') {
+        pathNow.value = 'Клиенты'
+    } else if (navbarStore.pathNow == '/vacancies') {
+        pathNow.value = 'Вакансии'
+    } else if (navbarStore.pathNow == '/selections') {
+        pathNow.value = 'Подборки'
+    } else if (navbarStore.pathNow == '/table-editing') {
+        pathNow.value = 'Редактирование таблиц'
+    }
+})
+
+// ---
+
+watch(() => navbarStore.pathNow, (state) => {
+    console.log(state)
+    if (state == '/') {
+        pathNow.value = 'Главная'
+    } else if (state == '/clients') {
+        pathNow.value = 'Клиенты'
+    } else if (state == '/vacancies') {
+        pathNow.value = 'Вакансии'
+    } else if (state == '/selections') {
+        pathNow.value = 'Подборки'
+    } else if (state == '/table-editing') {
+        pathNow.value = 'Редактирование таблиц'
+    }
+})
+
 </script>
 
 <style scoped>

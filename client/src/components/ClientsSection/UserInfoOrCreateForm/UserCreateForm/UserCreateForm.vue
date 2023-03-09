@@ -11,7 +11,7 @@
             <h3 class="my-auto text-lg font-medium leading-6 text-gray-400">Создать пользователя</h3>
             <!-- Выпадающий список с опциями -->
             <div class="ml-auto h-[49.2px] flex my-auto items-center text-gray-400">
-                <OptionsDropdown v-if="userStore.role == 'admin'" @createUser="createUser"
+                <OptionsDropdown v-if="userStore.role.administrator" @createUser="createUser"
                     @removeChanges="removeChanges" />
             </div>
         </div>

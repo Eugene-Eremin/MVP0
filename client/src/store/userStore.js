@@ -11,7 +11,7 @@ export const useUserStore = defineStore('userStore', () => {
 
     const user = ref({})
 
-    const authorized = ref(false)
+    const authorized = ref(null)
 
     const isLoading = ref(null)
 
@@ -22,6 +22,15 @@ export const useUserStore = defineStore('userStore', () => {
 
     const isEmailActivated = ref(null)
     const isPhoneNumberActivated = ref(null)
+
+
+    
+
+    const role = ref({
+        administrator: false,
+        applicant: false,
+        employer: false,
+    })
 
     const setAuth = (bool) => {
         authorized.value = bool
@@ -35,6 +44,12 @@ export const useUserStore = defineStore('userStore', () => {
         phoneNumber.value = thisUser?.phoneNumber
         isEmailActivated.value = thisUser?.isEmailActivated
         isPhoneNumberActivated.value = thisUser?.isPhoneNumberActivated
+        
+        thisUser?.groups.forEach(el => {
+            if (el == 1) role.value.administrator = true
+            if (el == 2) role.value.applicant = true 
+            if (el == 3) role.value.employer = true
+        })
     }
 
     const login = async (email, password) => {
@@ -93,6 +108,9 @@ export const useUserStore = defineStore('userStore', () => {
         isLoading.value = bool
     }
 
+    const getIsEmailActivated = computed(() => {
+        return isEmailActivated.value
+    })
 
     return {
         user,
@@ -102,11 +120,13 @@ export const useUserStore = defineStore('userStore', () => {
         phoneNumber,
         isEmailActivated,
         isPhoneNumberActivated,
+        role,
         setAuth,
         setUser,
         login,
         registration,
         logout,
-        checkAuth
+        checkAuth,
+        getIsEmailActivated
     }
 })

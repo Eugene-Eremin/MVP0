@@ -52,6 +52,7 @@ import { useUserStore } from '@/store/userStore';
 export default {
     data() {
         return {
+            check: null,
             form: false,
             email: null,
             phoneNumber: null,
@@ -74,13 +75,14 @@ export default {
         async login(data) {
             const userStore = useUserStore()
             await userStore.login(data.login, data.password)
+            return userStore
         },
         async validate() {
             const { valid } = await this.$refs.form.validate()
 
             if (!valid) return
 
-            const userStore = useUserStore()
+            let userStore = useUserStore()
 
             let login = null
             if (!this.show2) {
@@ -114,16 +116,34 @@ export default {
 
             // Инфа записывается в сторедж
 
-            this.login(data)
+            console.log(userStore.isEmailActivated)
+            console.log((await userStore).isEmailActivated)
+
+
+            // const thisUserStore = this.login(data)
+            userStore = this.login(data)
+
+            // console.log((await thisUserStore).isEmailActivated)
+
+            console.log(userStore.isEmailActivated)
+            console.log((await userStore).isEmailActivated)
+
 
             // Доделать
-            if (!userStore.isEmailActivated && !loading) {
+            if (!thisUserStore.getIsEmailActivated && !this.loading) {
                 router.push('/email-confirmation')
-            } else if (!userStore.isPhoneNumberActivated && !loading) {
+            } else if (!thisUserStore.getIsEmailActivated && !this.loading) {
                 router.push('/confirmation-of-the-phone-number')
             } else {
                 router.push('/vacancies')
             }
+        }
+    },
+    computed: {
+        getStore() {
+            const userStore = useUserStore()
+
+            this.check = userStore.getIsEmailActivated
         }
     },
     setup() {
@@ -132,7 +152,11 @@ export default {
 
         document.title = 'Войти'
 
-        return { navbarStore }
+        const userStore = useUserStore()
+
+        console.log(userStore.getIsEmailActivated)
+
+        return { navbarStore, userStore }
     }
 }
 </script>

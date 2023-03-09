@@ -42,9 +42,22 @@ class UserService {
             }
         })
 
+        const groups = await prisma.groups.findMany({
+            where: {
+                userId: user.id
+            },
+            select: {
+                groupNameId: true
+            }
+        })
+        const groupsArray = []
+        const enumeration = [...groups].forEach(el => {
+            groupsArray.push(el.groupNameId)
+        })
+
         await mailService.sendActivationMail(email, `${process.env.API_URL}/api/auth/activate/${activationLink}`)
 
-        const userDto = new UserDto(user)
+        const userDto = new UserDto(user, groupsArray)
         const tokens = tokenService.generateTokens({ ...userDto })
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
 
@@ -66,7 +79,28 @@ class UserService {
     }
 
     async login(email, password) {
-        const user = await prisma.users.findUnique({ where: { email } })
+        const user = await prisma.users.findUnique({
+            where: {
+                email
+            },
+            select: {
+                id: true,
+                email: true,
+                phoneNumber: true,
+                phoneNumber: true,
+                hashedPassword: true,
+                emailActivation: {
+                    select: {
+                        isEmailActivated: true
+                    }
+                },
+                phoneNumberActivation: {
+                    select: {
+                        isPhoneNumberActivated: true
+                    }
+                }
+            }
+        })
         if (!user) {
             throw ApiError.BadRequest('Пользователь с таким email не найден')
         }
@@ -76,7 +110,20 @@ class UserService {
             throw ApiError.BadRequest('Неверный пароль')
         }
 
-        const userDto = new UserDto(user);
+        const groups = await prisma.groups.findMany({
+            where: {
+                userId: user.id
+            },
+            select: {
+                groupNameId: true
+            }
+        })
+        const groupsArray = []
+        const enumeration = [...groups].forEach(el => {
+            groupsArray.push(el.groupNameId)
+        })
+
+        const userDto = new UserDto(user, groupsArray);
         const tokens = tokenService.generateTokens({ ...userDto })
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
 
@@ -120,7 +167,20 @@ class UserService {
             }
         })
 
-        const userDto = new UserDto(user)
+        const groups = await prisma.groups.findMany({
+            where: {
+                userId: user.id
+            },
+            select: {
+                groupNameId: true
+            }
+        })
+        const groupsArray = []
+        const enumeration = [...groups].forEach(el => {
+            groupsArray.push(el.groupNameId)
+        })
+
+        const userDto = new UserDto(user, groupsArray)
         const tokens = tokenService.generateTokens({ ...userDto })
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
 

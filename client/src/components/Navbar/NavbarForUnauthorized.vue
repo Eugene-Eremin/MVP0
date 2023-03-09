@@ -72,30 +72,16 @@ import { ref, watch } from 'vue';
 
 import { useNavbarStore } from '../../store/navbarStore';
 
+import { useUserStore } from '@/store/userStore';
+import { onMounted } from 'vue';
+const userStore = useUserStore()
+
+
 const navbarStore = useNavbarStore()
 
 const pathNow = ref('')
 
-watch(() => navbarStore.pathNow, (state) => {
-    if (state == '/') {
-        homeLink.classList.toggle("active");
-        pathNow.value = 'Главная'
-    } else if (state == '/login') {
-        loginLink.classList.toggle("active");
-        pathNow.value = 'Войти'
-    } else if (state == '/registration') {
-        registrationLink.classList.toggle("active");
-        pathNow.value = 'Регестрация'
-    } else if (state == '/email-confirmation') {
-        pathNow.value = 'Подтверждение электронной почты'
-    } else if (state == '/confirmation-of-the-phone-number') {
-        pathNow.value = 'Подтверждение номера телефона'
-    } 
-})
-
-// ---
-
-document.addEventListener("DOMContentLoaded", () => {
+onMounted(() => {
     const navbar = document.getElementById("navbar");
     const sidebar = document.getElementById("sidebar");
     const btnSidebarToggler = document.getElementById("btnSidebarToggler");
@@ -133,9 +119,38 @@ document.addEventListener("DOMContentLoaded", () => {
         navOpen.classList.toggle("hidden");
     });
 
-
     sidebar.style.top = parseInt(navbar.clientHeight) - 1 + "px";
-});
+
+    if (navbarStore.pathNow == '/') {
+        pathNow.value = 'Главная'
+    } else if (navbarStore.pathNow == '/login') {
+        pathNow.value = 'Войти'
+    } else if (navbarStore.pathNow == '/registration') {
+        pathNow.value = 'Регестрация'
+    } else if (navbarStore.pathNow == '/email-confirmation') {
+        pathNow.value = 'Подтверждение электронной почты'
+    } else if (navbarStore.pathNow == '/confirmation-of-the-phone-number') {
+        pathNow.value = 'Подтверждение номера телефона'
+    }
+})
+
+// ---
+
+watch(() => navbarStore.pathNow, (state) => {
+    console.log(state)
+    if (state == '/') {
+        pathNow.value = 'Главная'
+    } else if (state == '/login') {
+        pathNow.value = 'Войти'
+    } else if (state == '/registration') {
+        pathNow.value = 'Регестрация'
+    } else if (state == '/email-confirmation') {
+        pathNow.value = 'Подтверждение электронной почты'
+    } else if (state == '/confirmation-of-the-phone-number') {
+        pathNow.value = 'Подтверждение номера телефона'
+    }
+})
+
 </script>
 
 <style scoped>

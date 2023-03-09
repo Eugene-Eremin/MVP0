@@ -60,7 +60,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 
 import { useNavbarStore } from '../../store/navbarStore';
 
@@ -68,22 +68,7 @@ const navbarStore = useNavbarStore()
 
 const pathNow = ref('')
 
-watch(() => navbarStore.pathNow, (state) => {
-    if (state == '/') {
-        homeLink.classList.toggle("active");
-        pathNow.value = 'Главная'
-    } else if (state == '/clients') {
-        clientsLink.classList.toggle("active");
-        pathNow.value = 'Клиенты'
-    } else if (state == '/vacancies') {
-        vacanciesLink.classList.toggle("active");
-        pathNow.value = 'Вакансии'
-    }
-})
-
-// ---
-
-document.addEventListener("DOMContentLoaded", () => {
+onMounted(() => {
     const navbar = document.getElementById("navbar");
     const sidebar = document.getElementById("sidebar");
     const btnSidebarToggler = document.getElementById("btnSidebarToggler");
@@ -124,7 +109,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     sidebar.style.top = parseInt(navbar.clientHeight) - 1 + "px";
-});
+
+    // ---
+
+    if (navbarStore.pathNow == '/') {
+        pathNow.value = 'Главная'
+    } else if (navbarStore.pathNow == '/clients') {
+        pathNow.value = 'Клиенты'
+    } else if (navbarStore.pathNow == '/vacancies') {
+        pathNow.value = 'Вакансии'
+    }
+})
+
+// ---
+
+watch(() => navbarStore.pathNow, (state) => {
+    console.log(state)
+    if (state == '/') {
+        pathNow.value = 'Главная'
+    } else if (state == '/clients') {
+        pathNow.value = 'Клиенты'
+    } else if (state == '/vacancies') {
+        pathNow.value = 'Вакансии'
+    }
+})
+
+// ---
+
 </script>
 
 <style scoped>
